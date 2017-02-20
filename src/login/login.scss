@@ -1,6 +1,7 @@
 app-login {
     background: url('../assets/images/background.jpg') no-repeat 40% 40%;
     background-size: auto 100%;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
     .login-parent {
         position: relative;
@@ -9,34 +10,111 @@ app-login {
     }
 
     .dota-logo {
-        width: 20%;
-        height: auto;
         position: absolute;
         top: 30%;
         left: 50%;
         transform: translate(-50%, -50%);
-    }
-    
-    .login-btn {
-        position: absolute;
-        top: 60%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-    
-    .login-img {
-        content:url("../assets/google_signin_buttons/btn_google_signin_light_normal_web2.png");
+        text-align: center;
 
-        &:focus {
-            content:url("../assets/google_signin_buttons/btn_google_signin_light_focus_web2.png");
-        }
-
-        &:active {
-            content:url("../assets/google_signin_buttons/btn_google_signin_light_pressed_web2.png");
+        img {
+            width: 50%;
         }
     }
 
     .app-title {
-        font-family: Radiance-Bold;
+        color: whitesmoke;
+        font-family: Radiance-SemiBold;
+        letter-spacing: 5px;
+
+        -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+        -moz-animation: fadein 2s; /* Firefox < 16 */
+        -ms-animation: fadein 2s; /* Internet Explorer */
+        -o-animation: fadein 2s; /* Opera < 12.1 */
+        animation: fadein 2s;
+    }
+    
+    .login-card {
+        position: absolute;
+        bottom: 0;
+
+        -webkit-animation: slideup 2s; /* Safari, Chrome and Opera > 12.1 */
+        -moz-animation: slideup 2s; /* Firefox < 16 */
+        -ms-animation: slideup 2s; /* Internet Explorer */
+        -o-animation: slideup 2s; /* Opera < 12.1 */
+        animation: slideup 2s ease-in;
+    }
+
+    .login-icon {
+        width: 15%;
+        height: auto;
+        display: inline-block;
+        margin-left: 13%;
+    }
+
+    .card-content-ios {
+        padding: 0 0 10px 0;
+    }
+
+    @keyframes fadein {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+
+    /* Firefox < 16 */
+    @-moz-keyframes fadein {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+
+    /* Safari, Chrome and Opera > 12.1 */
+    @-webkit-keyframes fadein {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+
+    /* Internet Explorer */
+    @-ms-keyframes fadein {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+
+    /* Opera < 12.1 */
+    @-o-keyframes fadein {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+
+    @keyframes slideup {
+        0% { bottom: -50%; }
+        50% { bottom: 0; }
+        100% { bottom: 0; }
+    }
+
+    /* Firefox < 16 */
+    @-moz-keyframes slideup {
+        0% { bottom: -50%; }
+        50% { bottom: 0; }
+        100% { bottom: 0; }
+    }
+
+    /* Safari, Chrome and Opera > 12.1 */
+    @-webkit-keyframes slideup {
+        0% { bottom: -50%; }
+        50% { bottom: 0; }
+        100% { bottom: 0; }
+    }
+
+    /* Internet Explorer */
+    @-ms-keyframes slideup {
+        0% { bottom: -50%; }
+        50% { bottom: 0; }
+        100% { bottom: 0; }
+    }
+
+    /* Opera < 12.1 */
+    @-o-keyframes slideup {
+        0% { bottom: -50%; }
+        50% { bottom: 0; }
+        100% { bottom: 0; }
     }
 }

@@ -13,7 +13,14 @@ export class Login {
 
     loginWithGoogle() {
         this.authService.signInWithGoogle()
-        .then(() => this.onLoginSuccess())    
+            .then(() => this.onLoginSuccess())
+            .catch((err) => console.log(err))
+    }
+
+    loginWithFacebook() {
+        this.authService.signInWithFacebook()
+            .then(() => this.onLoginSuccess())
+            .catch((err) => console.log(err))
     }
 
     private onLoginSuccess(): void {

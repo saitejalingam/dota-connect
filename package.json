@@ -1,5 +1,5 @@
 {
-  "name": "dota-social",
+  "name": "dota-connect",
   "author": "Veera Sai Teja Lingam <saitejalingam@gmail.com>",
   "private": true,
   "scripts": {
@@ -41,5 +41,5 @@
     "ionic-plugin-keyboard"
   ],
   "cordovaPlatforms": [],
-  "description": "DotASocial: An Ionic project"
+  "description": "DotA Connect: An Ionic project"
 }

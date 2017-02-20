@@ -7,11 +7,11 @@ import { HomeModule } from '../pages/home/home.module';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyC9ridd0YITUMwhcBdnQSb0rZDVh0vdSHU",
-  authDomain: "dota-social-70c1d.firebaseapp.com",
-  databaseURL: "https://dota-social-70c1d.firebaseio.com",
-  storageBucket: "dota-social-70c1d.appspot.com",
-  messagingSenderId: "948042903054"
+  apiKey: "AIzaSyAG1VtH6hIX1QjyCEk7EBsocQnoL2-qdTo",
+  authDomain: "dota-connect.firebaseapp.com",
+  databaseURL: "https://dota-connect.firebaseio.com",
+  storageBucket: "dota-connect.appspot.com",
+  messagingSenderId: "863962534801"
 }
 
 export const firebaseAuthConfig = {
@@ -21,7 +21,7 @@ export const firebaseAuthConfig = {
 
 @NgModule({
   declarations: [
-    MyApp  
+    MyApp
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -33,6 +33,6 @@ export const firebaseAuthConfig = {
   entryComponents: [
     MyApp
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }]
 })
-export class AppModule {}
+export class AppModule { }

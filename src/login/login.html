@@ -1,22 +1,16 @@
 <div class="login-parent">
-    <div class="login-btn" (click)="loginWithGoogle()">
-         <img class="login-img">
-     </div>
-    <img class="dota-logo" src="../assets/images/dota2.png">
-
-    <h1 style="font-family: 'Radiance'">DotA Social</h1>
-
-    <h1 style="font-family: 'Radiance-SemiBold'">DotA Social</h1>
-
-    <h1 style="font-family: 'Radiance-Bold'">DotA Social</h1>
-
-    <h1 style="font-family: 'Trajan-Medium'">DotA Social</h1>
-
-    <h1 style="font-family: 'Trajan-Bold'">DotA Social</h1>
-
-    <h1 style="font-family: 'OptmiusPrinceps-SemiBold'">DotA Social</h1>
-    
-    <h1 style="font-family: 'OptmiusPrinceps'">DotA Social</h1>
-
-
+    <div class="dota-logo">
+        <img src="../assets/icons/dota2.png">
+        <h3 class="app-title">CONNECT</h3>
+    </div>
+    <ion-card class="login-card">
+        <ion-card-header>
+            <span>Sign in using</span>
+        </ion-card-header>
+        <ion-card-content>
+            <img src="../assets/icons/google.png" class="login-icon" (click)="loginWithGoogle()">
+            <img src="../assets/icons/facebook.png" class="login-icon" (click)="loginWithFacebook()">
+            <img src="../assets/icons/twitter.png" class="login-icon" (click)="loginWithTwitter()">
+        </ion-card-content>
+    </ion-card>
 </div>
