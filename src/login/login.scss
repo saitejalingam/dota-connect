@@ -1,0 +1,42 @@
+app-login {
+    background: url('../assets/images/background.jpg') no-repeat 40% 40%;
+    background-size: auto 100%;
+
+    .login-parent {
+        position: relative;
+        min-height: 100%;
+        min-width: 100%;
+    }
+
+    .dota-logo {
+        width: 20%;
+        height: auto;
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    .login-btn {
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    .login-img {
+        content:url("../assets/google_signin_buttons/btn_google_signin_light_normal_web2.png");
+
+        &:focus {
+            content:url("../assets/google_signin_buttons/btn_google_signin_light_focus_web2.png");
+        }
+
+        &:active {
+            content:url("../assets/google_signin_buttons/btn_google_signin_light_pressed_web2.png");
+        }
+    }
+
+    .app-title {
+        font-family: Radiance-Bold;
+    }
+}

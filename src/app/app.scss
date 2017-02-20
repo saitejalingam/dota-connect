@@ -14,3 +14,38 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+@font-face {
+  font-family: 'Radiance';
+  src: url('../assets/fonts/radiance.ttf')  format('truetype');
+}
+
+@font-face {
+  font-family: 'Radiance-SemiBold';
+  src: url('../assets/fonts/radiance-semibold.ttf')  format('truetype');
+}
+
+@font-face {
+  font-family: 'Radiance-Bold';
+  src: url('../assets/fonts/radiance-bold.ttf')  format('truetype');
+}
+
+@font-face {
+  font-family: 'OptmiusPrinceps';
+  src: url('../assets/fonts/OptmiusPrinceps.ttf')  format('truetype');
+}
+
+@font-face {
+  font-family: 'OptmiusPrinceps-SemiBold';
+  src: url('../assets/fonts/OptmiusPrincepsSemiBold.ttf')  format('truetype');
+}
+
+@font-face {
+  font-family: 'Trajan-Medium';
+  src: url('../assets/fonts/goudytrajan-medium-pro-webfont.ttf')  format('truetype');
+}
+
+@font-face {
+  font-family: 'Trajan-Bold';
+  src: url('../assets/fonts/goudytrajan-bold-pro-webfont.ttf')  format('truetype');
+}

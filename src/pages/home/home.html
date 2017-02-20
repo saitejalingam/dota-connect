@@ -1,0 +1,22 @@
+<ion-menu [content]="mycontent">
+    <ion-content>
+        <ion-list>
+            <ion-list-header>Steam Accounts</ion-list-header>
+            <button ion-item detail-none><span>Account 1</span></button>
+            <button ion-item detail-none><span>Account 2</span></button>
+            <button ion-item (click)="navigateTo()">Manage Accounts</button>
+
+            <ion-item-divider></ion-item-divider>
+            <ion-list-header>Friends</ion-list-header>
+            <button ion-item>Manage Accounts</button>
+            <button ion-item>Settings</button>
+
+            <ion-item-divider></ion-item-divider>
+            <ion-list-header>App</ion-list-header>
+            <button ion-item>Settings</button>
+            <button ion-item detail-none (click)="signOut()">Logout</button>
+        </ion-list>
+    </ion-content>
+</ion-menu>
+
+<ion-nav #mycontent [root]="rootPage"></ion-nav>
