@@ -5,6 +5,8 @@ import { Home } from './home';
 import { ManageAccounts } from '../manage-accounts/manage-accounts';
 import { Page2 } from '../page2/page2'; 
 
+import { SteamUserService } from '../../providers/steam-user-service';
+
 @NgModule({
     imports: [
         IonicModule.forRoot(Home)
@@ -17,7 +19,9 @@ import { Page2 } from '../page2/page2';
         ManageAccounts,
         Page2
     ],
-    providers: [],
+    providers: [
+        SteamUserService
+    ],
     bootstrap: [Home],
     entryComponents: [
         ManageAccounts,
