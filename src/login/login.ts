@@ -23,6 +23,12 @@ export class Login {
             .catch((err) => console.log(err))
     }
 
+    loginWithTwitterk() {
+        this.authService.signInWithTwitter()
+            .then(() => this.onLoginSuccess())
+            .catch((err) => console.log(err))
+    }
+
     private onLoginSuccess(): void {
         console.log('User ' + this.authService.displayName() + ' has been Authenticated!');
     }

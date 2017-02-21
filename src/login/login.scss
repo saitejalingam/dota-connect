@@ -19,29 +19,31 @@ app-login {
         img {
             width: 50%;
         }
-    }
-
-    .app-title {
-        color: whitesmoke;
-        font-family: Radiance-SemiBold;
-        letter-spacing: 5px;
-
+        
         -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
         -moz-animation: fadein 2s; /* Firefox < 16 */
         -ms-animation: fadein 2s; /* Internet Explorer */
         -o-animation: fadein 2s; /* Opera < 12.1 */
         animation: fadein 2s;
     }
+
+    .app-title {
+        color: whitesmoke;
+        font-family: Radiance-SemiBold;
+        letter-spacing: 5px;
+    }
     
     .login-card {
         position: absolute;
         bottom: 0;
+        margin: 0;
+        min-width: 100%;
 
-        -webkit-animation: slideup 2s; /* Safari, Chrome and Opera > 12.1 */
-        -moz-animation: slideup 2s; /* Firefox < 16 */
-        -ms-animation: slideup 2s; /* Internet Explorer */
-        -o-animation: slideup 2s; /* Opera < 12.1 */
-        animation: slideup 2s ease-in;
+        -webkit-animation: slideup 3s; /* Safari, Chrome and Opera > 12.1 */
+        -moz-animation: slideup 3s; /* Firefox < 16 */
+        -ms-animation: slideup 3s; /* Internet Explorer */
+        -o-animation: slideup 3s; /* Opera < 12.1 */
+        animation: slideup 3s ease-in;
     }
 
     .login-icon {
