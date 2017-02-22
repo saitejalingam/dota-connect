@@ -32,11 +32,18 @@ app-login {
         font-family: Radiance-SemiBold;
         letter-spacing: 5px;
     }
+
+    .sign-in {
+        font-family: Radiance;
+        font-size: 14px;
+        letter-spacing: 1px;
+    }
     
     .login-card {
         position: absolute;
         bottom: 0;
         margin: 0;
+        text-align: center;
         min-width: 100%;
 
         -webkit-animation: slideup 3s; /* Safari, Chrome and Opera > 12.1 */
@@ -47,14 +54,14 @@ app-login {
     }
 
     .login-icon {
-        width: 15%;
+        width: 40%;
         height: auto;
-        display: inline-block;
-        margin-left: 13%;
+        display: inline;
+        vertical-align: middle;
     }
 
-    .card-content-ios {
-        padding: 0 0 10px 0;
+    .card-content {
+        padding: 30px 15px 20px;
     }
 
     @keyframes fadein {
