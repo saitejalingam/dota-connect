@@ -34,13 +34,14 @@ app-login {
     }
 
     .sign-in {
-        font-family: Radiance;
         font-size: 14px;
         letter-spacing: 1px;
     }
     
     .login-card {
         position: absolute;
+        background: rgba(128, 128, 128, 0.3);
+        color: white;
         bottom: 0;
         margin: 0;
         text-align: center;
@@ -58,10 +59,11 @@ app-login {
         height: auto;
         display: inline;
         vertical-align: middle;
+        margin-left: -10px;
     }
 
     .card-content {
-        padding: 30px 15px 20px;
+        padding: 20px 15px 25px;
     }
 
     @keyframes fadein {

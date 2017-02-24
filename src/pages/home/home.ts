@@ -1,24 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NavController } from 'ionic-angular';
 
-import { AuthService } from '../../providers/auth-service';
-import { ManageAccounts } from '../manage-accounts/manage-accounts'
+import { Login } from '../../login/login';
+import { SteamIDService } from '../../providers/steamid-service';
+import { ManageAccounts } from '../manage-accounts/manage-accounts';
 
 @Component({
     selector: 'app-home',
     templateUrl: 'home.html'
 })
 export class Home implements OnInit {
-    public rootPage: any = ManageAccounts;
-    constructor(private authService: AuthService) { }
+    @ViewChild('appcontent') nav;
+    constructor(private navCtrl: NavController, private steamIDService: SteamIDService) { }
 
-    ngOnInit() { }
+    ngOnInit() {
+        this.nav.setRoot(ManageAccounts);
+     }
 
     public navigateTo(): void {
-       
+
     }
 
-    public signOut(): void {
-        console.log('Signing out!');
-        this.authService.signOut();
+    public logout() {
+        this.steamIDService.removeID();
+        this.navCtrl.setRoot(Login);
     }
 }

@@ -2,10 +2,9 @@ import { NgModule } from '@angular/core';
 import { IonicModule } from 'ionic-angular';
 
 import { Home } from './home';
+import { SteamIDService } from '../../providers/steamid-service'
 import { ManageAccounts } from '../manage-accounts/manage-accounts';
 import { Page2 } from '../page2/page2'; 
-
-import { SteamUserService } from '../../providers/steam-user-service';
 
 @NgModule({
     imports: [
@@ -19,9 +18,7 @@ import { SteamUserService } from '../../providers/steam-user-service';
         ManageAccounts,
         Page2
     ],
-    providers: [
-        SteamUserService
-    ],
+    providers: [SteamIDService],
     bootstrap: [Home],
     entryComponents: [
         ManageAccounts,

@@ -1,22 +1,19 @@
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
-import { AngularFire } from 'angularfire2';
 
 import { Login } from '../login/login';
 import { Home } from '../pages/home/home';
+import { SteamIDService } from '../providers/steamid-service';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   rootPage: any;
-  constructor(public platform: Platform, public af: AngularFire) {
+  constructor(public platform: Platform, private steamIDService: SteamIDService) {
     this.initializeApp();
-
-    af.auth.subscribe(user => {
-      this.rootPage = user ? Home : Login;
-    });
+    this.rootPage = steamIDService.getID() ? Home : Login;
   }
 
   initializeApp() {

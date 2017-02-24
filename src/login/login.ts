@@ -1,35 +1,51 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Nav, NavController } from 'ionic-angular';
+import { InAppBrowser } from 'ionic-native';
 
-import { AuthService } from '../providers/auth-service';
+import { SteamIDService } from '../providers/steamid-service';
+import { Home } from '../pages/home/home';
 
 @Component({
     selector: 'app-login',
     templateUrl: 'login.html'
 })
 export class Login {
-    @ViewChild(Nav) nav: NavController;
-    constructor(private authService: AuthService) { }
+    private baseUrl: string = 'https://dota-connect-server.herokuapp.com/api/login';
+    constructor(private navCtrl: NavController, private steamIDService: SteamIDService) { }
 
-    loginWithGoogle() {
-        this.authService.signInWithGoogle()
-            .then(() => this.onLoginSuccess())
-            .catch((err) => console.log(err))
-    }
+    public loginWithSteam() {
+    let browser = new InAppBrowser(this.baseUrl, '_blank', 'location=true');
 
-    loginWithFacebook() {
-        this.authService.signInWithFacebook()
-            .then(() => this.onLoginSuccess())
-            .catch((err) => console.log(err))
-    }
+    browser.on('loadstop')
+      .subscribe((e) => {
+        let url = e.url.split('?')[0];
+        let query = e.url.split('?')[1];
+        let keys = this.QueryStringToJSON(query);
 
-    loginWithTwitterk() {
-        this.authService.signInWithTwitter()
-            .then(() => this.onLoginSuccess())
-            .catch((err) => console.log(err))
-    }
+        if (url === this.baseUrl + '/success') {
+          let user_id = keys['openid.claimed_id'].split('/').splice(-1, 1)[0];
+          this.steamIDService.setID(user_id);
+          browser.close();
+          this.navCtrl.setRoot(Home);
+        }
+      });
 
-    private onLoginSuccess(): void {
-        console.log('User ' + this.authService.displayName() + ' has been Authenticated!');
-    }
+    browser.on('loaderror')
+      .subscribe(() => {
+        browser.close();
+      });
+  }
+
+  private QueryStringToJSON(query) {
+    let pairs: String[] = query.split('&');
+    let result = {};
+
+    pairs.forEach(function (pair) {
+      let str: any[];
+      str = pair.split('=');
+      result[str[0]] = decodeURIComponent(str[1] || '');
+    });
+
+    return JSON.parse(JSON.stringify(result));
+  }
 }
