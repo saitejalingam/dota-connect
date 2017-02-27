@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { Splashscreen } from 'ionic-native';
 
 import { Login } from '../../login/login';
 import { ManageAccounts } from '../manage-accounts/manage-accounts';
@@ -39,10 +40,14 @@ export class Home implements OnInit {
                         });
                 };
             });
-     }
+    }
 
     ngOnInit() {
         this.nav.setRoot(ManageAccounts);
+    }
+    
+    ionViewDidEnter() {
+        Splashscreen.hide();
     }
 
     public navigateTo(): void {

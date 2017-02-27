@@ -1,19 +1,23 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { InAppBrowser } from 'ionic-native';
+import { InAppBrowser, Splashscreen } from 'ionic-native';
 
 import { SteamIDService } from '../providers/steamid-service';
 import { Home } from '../pages/home/home';
 
 @Component({
-    selector: 'app-login',
-    templateUrl: 'login.html'
+  selector: 'app-login',
+  templateUrl: 'login.html'
 })
 export class Login {
-    private baseUrl: string = 'https://dota-connect-server.herokuapp.com/api/login';
-    constructor(private navCtrl: NavController, private steamIDService: SteamIDService) { }
+  private baseUrl: string = 'https://dota-connect-server.herokuapp.com/api/login';
+  constructor(private navCtrl: NavController, private steamIDService: SteamIDService) { }
 
-    public loginWithSteam() {
+  ionViewDidEnter() {
+    Splashscreen.hide();
+  }
+
+  public loginWithSteam() {
     let browser = new InAppBrowser(this.baseUrl, '_blank', 'location=true');
 
     browser.on('loadstop')
