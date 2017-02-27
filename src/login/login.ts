@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Nav, NavController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { InAppBrowser } from 'ionic-native';
 
 import { SteamIDService } from '../providers/steamid-service';

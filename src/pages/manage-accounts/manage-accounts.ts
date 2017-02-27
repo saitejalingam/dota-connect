@@ -7,13 +7,4 @@ import { NavController } from 'ionic-angular';
 })
 export class ManageAccounts {
   constructor(public navCtrl: NavController) { }
-
-  steamAccs: Array<Object> = [
-    {
-      name: 'Account 1'
-    },
-    {
-      name: 'Account 2'
-    }
-  ]
 }
