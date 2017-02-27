@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { IonicModule } from 'ionic-angular';
 
 import { Home } from './home';
-import { ManageAccounts } from '../manage-accounts/manage-accounts';
+import { PlayerProfile } from '../player-profile/player-profile';
 import { Page2 } from '../page2/page2'; 
 
 import { SteamIDService } from '../../providers/steamid-service';
@@ -17,7 +17,7 @@ import { SteamUserService } from '../../providers/steam-user-service';
     ],
     declarations: [
         Home,
-        ManageAccounts,
+        PlayerProfile,
         Page2
     ],
     providers: [
@@ -26,7 +26,7 @@ import { SteamUserService } from '../../providers/steam-user-service';
     ],
     bootstrap: [Home],
     entryComponents: [
-        ManageAccounts,
+        PlayerProfile,
         Page2
     ]
 })

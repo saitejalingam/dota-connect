@@ -14,7 +14,6 @@ import { DotaDataService } from '../providers/dota-data-service';
 export class MyApp {
   public rootPage : any;
   constructor(public platform: Platform, private steamIDService: SteamIDService, private dotaDataService: DotaDataService) {
-    this.rootPage = steamIDService.getID() ? Home : Login;
     this.initializeApp();
   }
 
@@ -25,7 +24,10 @@ export class MyApp {
       StatusBar.styleDefault();
       this.dotaDataService.getHeroes()
         .subscribe(() => {
-          this.dotaDataService.getItems();
+          this.dotaDataService.getItems()
+          .subscribe(() => {
+            this.rootPage = this.steamIDService.getID() ? Home : Login;
+          });
         });
     });
   }
