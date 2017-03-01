@@ -2,4 +2,16 @@ player-profile {
     ion-content {
         background: transparent !important;
     }
+
+    .header-md::after {
+        background-image: none;
+    }
+    
+    .toolbar-title {
+        color: $grey;
+    }
+
+    .bar-button {
+        color: $grey;
+    }
 }

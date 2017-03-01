@@ -1,4 +1,18 @@
 app-home {
-    background: url('../assets/images/background.jpg') no-repeat 40% 40%;
-    background-size: auto 100%;
+    .profile-img {
+        border-radius: 50%;
+        display: inline-block;
+        border: 1px solid white;
+    }
+
+    .profile-header {
+        background-color: $grey;
+        height: 25%;
+    }
+    
+    .list-header {
+        color: #FFF;
+        background-color: rgba(128, 128, 128, 0.7);
+        margin-bottom: 0;
+    }
 }

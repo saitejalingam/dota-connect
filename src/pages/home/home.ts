@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Splashscreen } from 'ionic-native';
+import { Observable } from 'rxjs';
 
 import { Login } from '../../login/login';
 import { PlayerProfile } from '../player-profile/player-profile';
@@ -14,7 +15,9 @@ import { SteamUserService } from '../../providers/steam-user-service';
 })
 export class Home implements OnInit {
     @ViewChild('appcontent') nav;
-    
+    public profile: any;
+    public onlineFriends: any;
+    public offlineFriends: any;
     constructor(
         private navCtrl: NavController,
         private steamIDService: SteamIDService,
@@ -28,7 +31,8 @@ export class Home implements OnInit {
     ionViewCanEnter() {
         this.steamUserService.getPlayerProfile()
             .subscribe((response) => {
-                console.log(response);
+                this.profile = response;
+                console.log(this.profile);
 
                 this.steamUserService.getPlayerFriends()
                     .subscribe((response) => {
@@ -36,8 +40,7 @@ export class Home implements OnInit {
                         if (friendIDs.length > 0) {
                             this.steamUserService.getFriendSummaries(friendIDs)
                                 .subscribe((response) => {
-                                    console.log(response);
-                                    return true;
+                                    this.sortFriends(response);
                                 });
                         };
                     });
@@ -46,6 +49,20 @@ export class Home implements OnInit {
 
     ionViewDidEnter() {
         Splashscreen.hide();
+    }
+
+    private sortFriends(friends: Array<any>) {
+        this.offlineFriends = friends.filter((o) => { return o.personastate === 0; }).sort(this.sortByLastLogOff);
+        this.onlineFriends = friends.filter((o) => { return o.personastate > 0; });
+
+        console.log(this.offlineFriends);
+        console.log(this.onlineFriends);
+    }
+
+    private sortByLastLogOff(a, b): number {
+        if (a.lastlogoff < b.lastlogoff) { return 1; }
+        if (a.lastlogoff > b.lastlogoff) { return -1; }
+        return 0;
     }
 
     public logout() {

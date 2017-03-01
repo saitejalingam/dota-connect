@@ -1,6 +1,10 @@
 app-login {
-    background: url('../assets/images/background.jpg') no-repeat 40% 40%;
-    background-size: auto 100%;
+    background: black; /* For browsers that do not support gradients */
+    background: -webkit-radial-gradient(circle, rgb(75, 75, 75), $grey, 40%); /* Safari 5.1 to 6.0 */
+    background: -o-radial-gradient(circle, rgb(75, 75, 75), $grey 40%); /* For Opera 11.6 to 12.0 */
+    background: -moz-radial-gradient(circle, rgb(75, 75, 75), $grey 40%); /* For Firefox 3.6 to 15 */
+    background: radial-gradient(circle, rgb(75, 75, 75), $grey 40%); /* Standard syntax */
+    background-position-y: -9em;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
     .login-parent {
@@ -40,7 +44,7 @@ app-login {
     
     .login-card {
         position: absolute;
-        background: rgba(128, 128, 128, 0.3);
+        background: rgba(255, 255, 255, 0.2);
         color: white;
         bottom: 0;
         margin: 0;

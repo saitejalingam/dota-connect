@@ -31,6 +31,7 @@ $colors: (
   dark:       #222
 );
 
+$grey: rgba(0, 0, 0, 0.8);
 
 // App iOS Variables
 // --------------------------------------------------
@@ -61,7 +62,7 @@ $colors: (
 // default are overridden.
 
 @import "ionic.theme.default";
-
+$toolbar-background: transparent;
 
 // Ionicons
 // --------------------------------------------------
