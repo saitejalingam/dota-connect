@@ -8,8 +8,23 @@ app-home {
     }
 
     .profile-header {
-        background-color: $primary-blue;
-        height: 25%;
+        background: url('../assets/images/background.jpg');
+        height: 20%;
+
+        .profile-container {
+            padding: 25px;
+            color: white;
+        }
+
+        .profile-text {
+            margin-top: 10px;
+            vertical-align: top;
+            display: inline-block;
+            
+            div {
+                padding: 0 12px;
+            }
+        }
     }
     
     .list-header {
@@ -28,6 +43,7 @@ app-home {
 
     .parent-button {
         padding-top: 10px;
+        letter-spacing: 1px;
     }
 
     .refresher-pulling-text, 
