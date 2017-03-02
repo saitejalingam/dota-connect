@@ -11,7 +11,10 @@ import { Home } from '../pages/home/home';
 })
 export class Login {
   private baseUrl: string = 'https://dota-connect-server.herokuapp.com/api/login';
-  constructor(private navCtrl: NavController, private steamIDService: SteamIDService) { }
+  constructor(
+    private navCtrl: NavController,
+    private steamIDService: SteamIDService
+  ) { }
 
   ionViewDidEnter() {
     Splashscreen.hide();

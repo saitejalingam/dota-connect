@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Splashscreen } from 'ionic-native';
-import { Observable } from 'rxjs';
 
 import { Login } from '../../login/login';
 import { PlayerProfile } from '../player-profile/player-profile';
@@ -13,37 +12,40 @@ import { SteamUserService } from '../../providers/steam-user-service';
     selector: 'app-home',
     templateUrl: 'home.html'
 })
-export class Home implements OnInit {
+export class Home {
     @ViewChild('appcontent') nav;
     public profile: any;
     public onlineFriends: any;
     public offlineFriends: any;
+    public hideOnline: boolean = false;
+    public hideOffline: boolean = true;
+
     constructor(
         private navCtrl: NavController,
         private steamIDService: SteamIDService,
         private steamUserService: SteamUserService
     ) { }
 
-    ngOnInit() {
-        this.nav.setRoot(PlayerProfile);
-    }
-
     ionViewCanEnter() {
         this.steamUserService.getPlayerProfile()
-            .subscribe((response) => {
-                this.profile = response;
-                console.log(this.profile);
-
-                this.steamUserService.getPlayerFriends()
-                    .subscribe((response) => {
-                        let friendIDs = response.map((friend) => { return friend.steamid; });
-                        if (friendIDs.length > 0) {
-                            this.steamUserService.getFriendSummaries(friendIDs)
-                                .subscribe((response) => {
-                                    this.sortFriends(response);
-                                });
-                        };
-                    });
+            .flatMap((profile) => {
+                this.profile = profile;
+                this.steamUserService.profile = profile;
+                return this.steamUserService.getPlayerFriends();
+            })
+            .flatMap((friendIDs) => {
+                this.steamUserService.friendIDs = friendIDs.map((friend) => { return friend.steamid; });
+                return this.steamUserService.getFriendSummaries();
+            })
+            .subscribe((friends) => {
+                this.steamUserService.friends = friends;
+                this.offlineFriends = friends.filter((o) => { return o.personastate === 0; }).sort(this.sortByLastLogOff);
+                this.onlineFriends = friends.filter((o) => { return o.personastate > 0; });
+                this.nav.setRoot(PlayerProfile);
+                return true;
+            }, (err) => {
+                console.log(err);
+                return false;
             });
     }
 
@@ -51,18 +53,32 @@ export class Home implements OnInit {
         Splashscreen.hide();
     }
 
-    private sortFriends(friends: Array<any>) {
-        this.offlineFriends = friends.filter((o) => { return o.personastate === 0; }).sort(this.sortByLastLogOff);
-        this.onlineFriends = friends.filter((o) => { return o.personastate > 0; });
-
-        console.log(this.offlineFriends);
-        console.log(this.onlineFriends);
-    }
-
     private sortByLastLogOff(a, b): number {
         if (a.lastlogoff < b.lastlogoff) { return 1; }
         if (a.lastlogoff > b.lastlogoff) { return -1; }
         return 0;
+    }
+
+    public updateFriends(refresher) {
+        this.steamUserService.getFriendSummaries()
+            .subscribe((friends) => {
+                this.steamUserService.friends = friends;
+                this.offlineFriends = friends.filter((o) => { return o.personastate === 0; }).sort(this.sortByLastLogOff);
+                this.onlineFriends = friends.filter((o) => { return o.personastate > 0; }).sort(this.sortByLastLogOff);
+                refresher.complete();
+            }, (err) => {
+                refresher.complete();
+                console.log(err);
+                return false;
+            });
+    }
+
+    public toggleHideOnline() {
+        this.hideOnline = !this.hideOnline;
+    }
+
+    public toggleHideOffline() {
+        this.hideOffline = !this.hideOffline;
     }
 
     public logout() {

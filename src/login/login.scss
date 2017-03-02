@@ -1,9 +1,9 @@
 app-login {
-    background: black; /* For browsers that do not support gradients */
-    background: -webkit-radial-gradient(circle, rgb(75, 75, 75), $grey, 40%); /* Safari 5.1 to 6.0 */
-    background: -o-radial-gradient(circle, rgb(75, 75, 75), $grey 40%); /* For Opera 11.6 to 12.0 */
-    background: -moz-radial-gradient(circle, rgb(75, 75, 75), $grey 40%); /* For Firefox 3.6 to 15 */
-    background: radial-gradient(circle, rgb(75, 75, 75), $grey 40%); /* Standard syntax */
+    background: $primary-blue; /* For browsers that do not support gradients */
+    background: -webkit-radial-gradient(circle, $secondary-blue, $primary-blue, 40%); /* Safari 5.1 to 6.0 */
+    background: -o-radial-gradient(circle, $secondary-blue, $primary-blue 40%); /* For Opera 11.6 to 12.0 */
+    background: -moz-radial-gradient(circle, $secondary-blue, $primary-blue 40%); /* For Firefox 3.6 to 15 */
+    background: radial-gradient(circle, $secondary-blue, $primary-blue 40%);
     background-position-y: -9em;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
@@ -44,18 +44,18 @@ app-login {
     
     .login-card {
         position: absolute;
-        background: rgba(255, 255, 255, 0.2);
-        color: white;
+        background: white;
+        color: $grey;
         bottom: 0;
         margin: 0;
         text-align: center;
         min-width: 100%;
 
-        -webkit-animation: slideup 3s; /* Safari, Chrome and Opera > 12.1 */
-        -moz-animation: slideup 3s; /* Firefox < 16 */
-        -ms-animation: slideup 3s; /* Internet Explorer */
-        -o-animation: slideup 3s; /* Opera < 12.1 */
-        animation: slideup 3s ease-in;
+        -webkit-animation: slideup 2s; /* Safari, Chrome and Opera > 12.1 */
+        -moz-animation: slideup 2s; /* Firefox < 16 */
+        -ms-animation: slideup 2s; /* Internet Explorer */
+        -o-animation: slideup 2s; /* Opera < 12.1 */
+        animation: slideup 2s ease linear;
     }
 
     .login-icon {

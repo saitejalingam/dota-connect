@@ -4,24 +4,39 @@
         <ion-title>{{ profile?.personaname }}</ion-title>
     </ion-header>
     <ion-content>
+        <ion-refresher (ionRefresh)="updateFriends($event)">
+            <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles">
+            </ion-refresher-content>
+        </ion-refresher>
         <ion-list>
-            <ion-list-header>Online</ion-list-header>
-            <button ion-item detail-none *ngFor="let friend of onlineFriends">
-                {{ friend?.personaname }}
-                <img item-left class="profile-img" [src]="friend?.avatar">
+            <ion-list-header>Friends</ion-list-header>
+            <button ion-item detail-none (click)="toggleHideOnline()" class="parent-button">Online
+                <ion-icon item-right name="{{ hideOnline ? 'arrow-dropdown' : 'arrow-dropup' }}"></ion-icon>
             </button>
-
-            <ion-item-divider></ion-item-divider>
-            <ion-list-header>Offline</ion-list-header>
-            <button ion-item detail-none *ngFor="let friend of offlineFriends">
+            <div [hidden]="hideOnline">
+                <button ion-item detail-none *ngFor="let friend of onlineFriends" class="friend-item">
                 {{ friend?.personaname }}
                 <ion-avatar item-left>
                     <img [src]="friend?.avatar">
                 </ion-avatar>
             </button>
+            </div>
 
-            <ion-item-divider></ion-item-divider>
-            <button ion-item detail-none (click)="logout()">Logout</button>
+            <button ion-item detail-none (click)="toggleHideOffline()" class="parent-button">Offline
+                <ion-icon item-right name="{{ hideOffline ? 'arrow-dropdown' : 'arrow-dropup' }}"></ion-icon>
+            </button>
+            <div [hidden]="hideOffline">
+                <button ion-item detail-none *ngFor="let friend of offlineFriends" class="friend-item">
+                {{ friend?.personaname }}
+                <ion-avatar item-left>
+                    <img [src]="friend?.avatar">
+                </ion-avatar>
+            </button>
+            </div>
+
+            <ion-list-header>App</ion-list-header>
+            <button class="parent-button" ion-item detail-none>Settings</button>
+            <button class="parent-button" ion-item detail-none (click)="logout()">Logout</button>
         </ion-list>
     </ion-content>
 </ion-menu>

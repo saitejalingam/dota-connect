@@ -6,6 +6,7 @@ import { MyApp } from './app.component';
 import { LoginModule } from '../login/login.module';
 import { HomeModule } from '../pages/home/home.module';
 import { SteamIDService } from '../providers/steamid-service';
+import { DotaDataService } from '../providers/dota-data-service';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { SteamIDService } from '../providers/steamid-service';
   ],
   providers: [
     SteamIDService,
+    DotaDataService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
