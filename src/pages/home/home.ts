@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, NgZone } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 import { Splashscreen } from 'ionic-native';
 
@@ -12,7 +12,7 @@ import { SteamUserService } from '../../providers/steam-user-service';
     selector: 'app-home',
     templateUrl: 'home.html'
 })
-export class Home implements OnInit {
+export class Home {
     @ViewChild('appcontent') nav;
     public profile: any;
     public onlineFriends: any;
@@ -24,14 +24,16 @@ export class Home implements OnInit {
         private navCtrl: NavController,
         private steamIDService: SteamIDService,
         private steamUserService: SteamUserService,
-        private loading: LoadingController
+        private loading: LoadingController,
+        private zone: NgZone
     ) { }
 
-    ngOnInit() {
+    ionViewDidEnter() {
         let loader = this.loading.create({
             content: 'Getting player profile...'
         });
-
+        
+        Splashscreen.hide();
         loader.present().then(() => {
             this.steamUserService.getPlayerProfile()
             .flatMap((profile) => {
@@ -53,12 +55,7 @@ export class Home implements OnInit {
                 loader.dismiss();
                 console.log(err);
             });
-        })
-        
-    }
-
-    ionViewDidEnter() {
-        Splashscreen.hide();
+        });
     }
 
     private sortByLastLogOff(a, b): number {
@@ -81,11 +78,11 @@ export class Home implements OnInit {
     }
 
     public toggleHideOnline() {
-        this.hideOnline = !this.hideOnline;
+        this.zone.run(()=> { this.hideOnline = !this.hideOnline; });
     }
 
     public toggleHideOffline() {
-        this.hideOffline = !this.hideOffline;
+        this.zone.run(()=> { this.hideOffline = !this.hideOffline; });
     }
 
     public logout() {

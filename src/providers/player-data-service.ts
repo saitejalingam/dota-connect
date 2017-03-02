@@ -6,25 +6,28 @@ import { Observable } from 'rxjs';
 export class PlayerDataService {
     constructor(public http: Http) {}
 
-    public getMatchHistory(): Observable<any> {
-        let baseUrl = 'http://api.steampowered.com/IEconDOTA2_570/GetHeroes/v1';
+    public getMatchHistory(player_id: any, last_match_id?: any): Observable<any> {
+        let baseUrl = 'http://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/v1';
         let params: URLSearchParams = new URLSearchParams();
         params.set('key', '1027FC1AEF0AB63243EEA50A25AE5156');
-        params.set('language', 'en_US');
+        params.set('account_id', player_id);
+        params.set('min_players', '10');
+        params.set('matches_requested', '5');
+        last_match_id && params.set('start_at_match_id', last_match_id);
 
         return this.http.get(baseUrl, { search: params })
             .map((res: Response) => res.json())
-            .map((res) => { return res.result.heroes });
+            .map((res) => { return res.result.matches });
     }
 
-    public getMatchDetails(): Observable<any> {
-        let baseUrl = 'http://api.steampowered.com/IEconDOTA2_570/GetGameItems/v1';
+    public getMatchDetails(match_id): Observable<any> {
+        let baseUrl = 'http://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/v1';
         let params: URLSearchParams = new URLSearchParams();
         params.set('key', '1027FC1AEF0AB63243EEA50A25AE5156');
-        params.set('language', 'en_US');
+        params.set('match_id', match_id);
 
         return this.http.get(baseUrl, { search: params })
             .map((res: Response) => res.json())
-            .map((res) => { return res.result.items });
+            .map((res) => { return res.result });
     }
 }

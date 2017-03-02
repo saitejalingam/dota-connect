@@ -7,6 +7,7 @@ import { Page2 } from '../page2/page2';
 
 import { SteamIDService } from '../../providers/steamid-service';
 import { SteamUserService } from '../../providers/steam-user-service';
+import { PlayerDataService } from '../../providers/player-data-service';
 
 @NgModule({
     imports: [
@@ -22,7 +23,8 @@ import { SteamUserService } from '../../providers/steam-user-service';
     ],
     providers: [
         SteamIDService,
-        SteamUserService
+        SteamUserService,
+        PlayerDataService
     ],
     bootstrap: [Home],
     entryComponents: [
