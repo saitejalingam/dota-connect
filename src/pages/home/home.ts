@@ -1,5 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Component, ViewChild, OnInit } from '@angular/core';
+import { NavController, LoadingController } from 'ionic-angular';
 import { Splashscreen } from 'ionic-native';
 
 import { Login } from '../../login/login';
@@ -12,7 +12,7 @@ import { SteamUserService } from '../../providers/steam-user-service';
     selector: 'app-home',
     templateUrl: 'home.html'
 })
-export class Home {
+export class Home implements OnInit {
     @ViewChild('appcontent') nav;
     public profile: any;
     public onlineFriends: any;
@@ -23,11 +23,17 @@ export class Home {
     constructor(
         private navCtrl: NavController,
         private steamIDService: SteamIDService,
-        private steamUserService: SteamUserService
+        private steamUserService: SteamUserService,
+        private loading: LoadingController
     ) { }
 
-    ionViewCanEnter() {
-        this.steamUserService.getPlayerProfile()
+    ngOnInit() {
+        let loader = this.loading.create({
+            content: 'Getting player profile...'
+        });
+
+        loader.present().then(() => {
+            this.steamUserService.getPlayerProfile()
             .flatMap((profile) => {
                 this.profile = profile;
                 this.steamUserService.profile = profile;
@@ -42,11 +48,13 @@ export class Home {
                 this.offlineFriends = friends.filter((o) => { return o.personastate === 0; }).sort(this.sortByLastLogOff);
                 this.onlineFriends = friends.filter((o) => { return o.personastate > 0; });
                 this.nav.setRoot(PlayerProfile);
-                return true;
+                loader.dismiss();
             }, (err) => {
+                loader.dismiss();
                 console.log(err);
-                return false;
             });
+        })
+        
     }
 
     ionViewDidEnter() {
@@ -69,7 +77,6 @@ export class Home {
             }, (err) => {
                 refresher.complete();
                 console.log(err);
-                return false;
             });
     }
 
