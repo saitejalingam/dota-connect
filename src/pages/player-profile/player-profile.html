@@ -7,5 +7,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-    
+  <div *ngFor="let match of matchDetails">
+    <match-details-card *ngIf="match" [match]="match" [playerId]="playerId"></match-details-card>
+  </div>
 </ion-content>

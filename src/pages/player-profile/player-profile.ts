@@ -9,9 +9,11 @@ import { PlayerDataService } from '../../providers/player-data-service';
   selector: 'player-profile',
   templateUrl: 'player-profile.html'
 })
-export class PlayerProfile{
+export class PlayerProfile {
   private playerId: any;
-  private last_match_id: any = 0;
+  private lastMatchId: any = 0;
+  private matchDetails: Array<any> = new Array();
+
   constructor(
     private navCtrl: NavController,
     private playerData: PlayerDataService,
@@ -26,21 +28,22 @@ export class PlayerProfile{
     });
 
     loader.present().then(() => {
-            this.playerData.getMatchHistory(this.playerId)
-            .flatMap((response) => { 
-              let match_details = [];
-              let match_ids = response.map((match) => { return match.match_id; });
-              match_ids.forEach((match_id) => { match_details.push(this.playerData.getMatchDetails(match_id)) });
-              
-              return Observable.forkJoin(match_details);
-            })
-            .subscribe((response) => {
-                console.log(response);
-                loader.dismiss();
-            }, (err) => {
-                loader.dismiss();
-                console.log(err);
-            });
+      this.playerData.getMatchHistory(this.playerId)
+        .flatMap((response) => {
+          let matchDetailsObservables = [];
+          let matchIds = response.map((match) => { return match.match_id; });
+          matchIds.forEach((match_id) => { matchDetailsObservables.push(this.playerData.getMatchDetails(match_id)) });
+
+          return Observable.forkJoin(matchDetailsObservables);
+        })
+        .subscribe((response) => {
+          this.matchDetails.push(...response);
+          console.log(this.matchDetails);
+          loader.dismiss();
+        }, (err) => {
+          loader.dismiss();
+          console.log(err);
         });
+    });
   };
 }
