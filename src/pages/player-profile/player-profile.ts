@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
+import { NavController, LoadingController, NavParams } from 'ionic-angular';
 import { Observable } from 'rxjs';
 
 import { SteamIDService } from '../../providers/steamid-service';
@@ -11,6 +11,7 @@ import { PlayerDataService } from '../../providers/player-data-service';
 })
 export class PlayerProfile {
   private playerId: any;
+  public playerName: any;
   private lastMatchId: any = 0;
   private matchDetails: Array<any> = new Array();
 
@@ -18,11 +19,14 @@ export class PlayerProfile {
     private navCtrl: NavController,
     private playerData: PlayerDataService,
     private IDService: SteamIDService,
-    private loading: LoadingController
+    private loading: LoadingController,
+    private navParams: NavParams
   ) { }
 
   ionViewDidEnter() {
-    this.playerId = this.IDService.getID();
+    this.playerName = this.navParams.get('playerName');
+    this.playerId = this.navParams.get('playerId');    
+    
     let loader = this.loading.create({
       content: 'Getting match data...'
     });

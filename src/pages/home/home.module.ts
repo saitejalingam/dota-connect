@@ -4,8 +4,6 @@ import { MomentModule } from 'angular2-moment/moment.module';
 
 import { Home } from './home';
 import { PlayerProfile } from '../player-profile/player-profile';
-import { Page2 } from '../page2/page2'; 
-
 import { MatchDetailsCard } from '../components/match-details-card/match-details-card';
 
 import { SteamIDService } from '../../providers/steamid-service';
@@ -23,7 +21,6 @@ import { PlayerDataService } from '../../providers/player-data-service';
     declarations: [
         Home,
         PlayerProfile,
-        Page2,
         MatchDetailsCard
     ],
     providers: [
@@ -33,8 +30,7 @@ import { PlayerDataService } from '../../providers/player-data-service';
     ],
     bootstrap: [Home],
     entryComponents: [
-        PlayerProfile,
-        Page2
+        PlayerProfile
     ]
 })
 export class HomeModule { }

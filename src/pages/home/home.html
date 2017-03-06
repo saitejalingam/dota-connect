@@ -1,6 +1,6 @@
 <ion-menu [content]="appcontent">
     <ion-header class="profile-header">
-        <div class="profile-container">
+        <div class="profile-container" (click)="navigateToProfile(profile)">
             <img class="profile-img" [src]="profile?.avatarmedium">
             <div class="profile-text">
                 <ion-title>{{ profile?.personaname }}</ion-title>
@@ -20,7 +20,7 @@
                 <ion-icon item-right name="{{ hideOnline ? 'arrow-dropdown' : 'arrow-dropup' }}"></ion-icon>
             </button>
             <div [hidden]="hideOnline">
-                <button ion-item detail-none *ngFor="let friend of onlineFriends" class="friend-item">
+                <button ion-item detail-none *ngFor="let friend of onlineFriends" class="friend-item" (click)="navigateToProfile(friend)">
                 {{ friend?.personaname }}
                 <ion-avatar item-left>
                     <img [src]="friend?.avatar">
@@ -32,7 +32,7 @@
                 <ion-icon item-right name="{{ hideOffline ? 'arrow-dropdown' : 'arrow-dropup' }}"></ion-icon>
             </button>
             <div [hidden]="hideOffline">
-                <button ion-item detail-none *ngFor="let friend of offlineFriends" class="friend-item">
+                <button ion-item detail-none *ngFor="let friend of offlineFriends" class="friend-item" (click)="navigateToProfile(friend)">
                 {{ friend?.personaname }}
                 <ion-avatar item-left>
                     <img [src]="friend?.avatar">

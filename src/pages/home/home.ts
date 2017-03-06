@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit, NgZone } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
+import { NavController, LoadingController, MenuController } from 'ionic-angular';
 import { Splashscreen } from 'ionic-native';
 
 import { Login } from '../../login/login';
@@ -25,7 +25,8 @@ export class Home {
         private steamIDService: SteamIDService,
         private steamUserService: SteamUserService,
         private loading: LoadingController,
-        private zone: NgZone
+        private zone: NgZone,
+        private menuCtrl: MenuController
     ) { }
 
     ionViewDidEnter() {
@@ -49,7 +50,11 @@ export class Home {
                 this.steamUserService.friends = friends;
                 this.offlineFriends = friends.filter((o) => { return o.personastate === 0; }).sort(this.sortByLastLogOff);
                 this.onlineFriends = friends.filter((o) => { return o.personastate > 0; });
-                this.nav.setRoot(PlayerProfile);
+                this.nav.setRoot(PlayerProfile, {
+                    playerId: this.profile.steamid,
+                    playerName: this.profile.personaname
+                });
+                
                 loader.dismiss();
             }, (err) => {
                 loader.dismiss();
@@ -75,6 +80,14 @@ export class Home {
                 refresher.complete();
                 console.log(err);
             });
+    }
+
+    public navigateToProfile(player) {
+        this.menuCtrl.close();
+        this.nav.setRoot(PlayerProfile, {
+            playerId: player.steamid,
+            playerName: player.personaname
+        });
     }
 
     public toggleHideOnline() {

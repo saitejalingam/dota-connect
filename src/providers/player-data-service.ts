@@ -12,7 +12,7 @@ export class PlayerDataService {
         params.set('key', '1027FC1AEF0AB63243EEA50A25AE5156');
         params.set('account_id', player_id);
         params.set('min_players', '10');
-        params.set('matches_requested', '5');
+        params.set('matches_requested', '7');
         last_match_id && params.set('start_at_match_id', last_match_id);
 
         return this.http.get(baseUrl, { search: params })
