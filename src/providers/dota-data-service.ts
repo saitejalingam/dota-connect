@@ -27,6 +27,17 @@ export class DotaDataService {
         this._items = items;
     }
 
+    public getHeroNameByID(heroid: number): any {
+        let name = this.heroes.find(hero => hero.id === heroid).name;
+        name = name.split("_");
+        name.splice(0, 3);
+        return name.join("_");
+    }
+
+    public getHeroLocalizedNameByID(heroid: number): any {
+        return this.heroes.find(hero => hero.id === heroid).localized_name;
+    }
+
     public fetchHeroes(): Observable<any> {
         let baseUrl = 'http://api.steampowered.com/IEconDOTA2_570/GetHeroes/v1';
         let params: URLSearchParams = new URLSearchParams();

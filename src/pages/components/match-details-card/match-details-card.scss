@@ -1,0 +1,40 @@
+match-details-card {
+    .hero-card {
+        margin-bottom: 4%;
+        position: relative;
+        height: 144px;
+
+        .hero-details {
+            color: white;
+            top: 15px;
+            right: 15px;
+            position: absolute;
+            text-align: right;
+
+            span {
+                display: block;
+                letter-spacing: 3px;
+            }
+        }
+    }
+
+    .green-hue {
+        &:before {
+            content: '';
+	        position: absolute;
+            height: 144px;
+            width: 100%;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 10%, #002000 65%, #000000 95%) 
+        }
+    }
+
+    .red-hue {
+        &:before {
+            content: '';
+	        position: absolute;
+            height: 144px;
+            width: 100%;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 10%, #300000 65%, #000000 95%) 
+        }
+    }
+}

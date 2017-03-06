@@ -28,14 +28,9 @@ export class PlayerProfile {
     });
 
     loader.present().then(() => {
-      this.playerData.getMatchHistory(this.playerId)
-        .flatMap((response) => {
-          let matchDetailsObservables = [];
-          let matchIds = response.map((match) => { return match.match_id; });
-          matchIds.forEach((match_id) => { matchDetailsObservables.push(this.playerData.getMatchDetails(match_id)) });
+      let match_history = this.playerData.getMatchHistory(this.playerId);
 
-          return Observable.forkJoin(matchDetailsObservables);
-        })
+      this.loadMatchDetails(match_history)
         .subscribe((response) => {
           this.matchDetails.push(...response);
           console.log(this.matchDetails);
@@ -46,4 +41,29 @@ export class PlayerProfile {
         });
     });
   };
+
+  public onInfiniteScroll(scroll) {
+    let last_match_id = this.matchDetails[this.matchDetails.length - 1].match_id;
+    let match_history = this.playerData.getMatchHistory(this.playerId, last_match_id);
+
+    this.loadMatchDetails(match_history)
+      .subscribe((response) => {
+        response.splice(0, 1);
+        this.matchDetails.push(...response);
+        scroll.complete();
+      }, (err) => {
+        scroll.complete();
+        console.log(err);
+      });
+  }
+
+  public loadMatchDetails(matchHistory: Observable<any>): Observable<any> {
+    return matchHistory.flatMap((response) => {
+      let matchDetailsObservables = [];
+      let matchIds = response.map((match) => { return match.match_id; });
+      matchIds.forEach((match_id) => { matchDetailsObservables.push(this.playerData.getMatchDetails(match_id)) });
+
+      return Observable.forkJoin(matchDetailsObservables);
+    });
+  }
 }
