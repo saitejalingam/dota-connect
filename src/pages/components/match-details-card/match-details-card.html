@@ -5,4 +5,7 @@
         <span>K/D/A</span>
         <span>{{ playerDetails.kills }}/{{ playerDetails.deaths }}/{{ playerDetails.assists }}</span>
     </div>
+    <div class="match-time">
+        {{ (this.match.start_time | amFromUnix) | amDateFormat:'MMMM Do, h:mm A' }}
+    </div>
 </div>

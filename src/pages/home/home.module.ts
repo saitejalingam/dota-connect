@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { IonicModule } from 'ionic-angular';
+import { MomentModule } from 'angular2-moment/moment.module';
 
 import { Home } from './home';
 import { PlayerProfile } from '../player-profile/player-profile';
@@ -13,7 +14,8 @@ import { PlayerDataService } from '../../providers/player-data-service';
 
 @NgModule({
     imports: [
-        IonicModule.forRoot(Home)
+        IonicModule.forRoot(Home),
+        MomentModule
     ],
     exports: [
         Home

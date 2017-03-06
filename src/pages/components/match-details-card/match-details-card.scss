@@ -3,9 +3,9 @@ match-details-card {
         margin-bottom: 4%;
         position: relative;
         height: 144px;
+        color: white;
 
         .hero-details {
-            color: white;
             top: 15px;
             right: 15px;
             position: absolute;
@@ -15,6 +15,16 @@ match-details-card {
                 display: block;
                 letter-spacing: 3px;
             }
+        }
+
+        .match-time {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            font-size: 12px;
+            padding: 8px 10px 3px;
+            letter-spacing: 1px;
+            background-color: linear-gradient(to right, #000000 , rgba(0, 0, 0, 0) 75%);
         }
     }
 

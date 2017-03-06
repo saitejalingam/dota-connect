@@ -14,9 +14,10 @@ import { DotaDataService } from '../providers/dota-data-service';
   ],
   imports: [
     IonicModule.forRoot(MyApp),
+    HttpModule,
+    
     LoginModule,
-    HomeModule,
-    HttpModule
+    HomeModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
