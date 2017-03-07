@@ -1,4 +1,4 @@
-<div class="hero-card" [ngClass]="isWin() ? 'green-hue': 'red-hue'">
+<div class="hero-card" [ngClass]="isWin ? 'green-hue': 'red-hue'">
     <img [src]="getHeroImageURL(playerDetails.hero_id)">
     <div class="hero-details">
         <h2>{{ getHeroLocalizedName(playerDetails.hero_id) }}</h2>

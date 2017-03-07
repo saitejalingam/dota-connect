@@ -12,12 +12,13 @@ export class MatchDetailsCard implements OnChanges {
 
     public accountId: number;
     public playerDetails: any;
+    public isWin: boolean = false;
     constructor(private dataService: DotaDataService) { }
 
     ngOnChanges() {
         this.accountId = this.getAccountID(this.playerId);
         this.playerDetails = this.match.players.find(player => player.account_id === this.accountId);
-
+        this.isWin = this.getIsWin();
         console.log(this.playerDetails)
     }
 
@@ -49,7 +50,7 @@ export class MatchDetailsCard implements OnChanges {
         return accountId;
     }
 
-    public isWin(): boolean {
+    public getIsWin(): boolean {
         let playerIndex = this.match.players.findIndex(player => player === this.playerDetails);
         let isRadiant = playerIndex < 5;
         let radiantWin = this.match.radiant_win;

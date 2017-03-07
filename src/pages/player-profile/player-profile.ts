@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, LoadingController, NavParams } from 'ionic-angular';
 import { Observable } from 'rxjs';
+import { Push, PushToken } from '@ionic/cloud-angular';
 
 import { SteamIDService } from '../../providers/steamid-service';
 import { PlayerDataService } from '../../providers/player-data-service';
@@ -20,7 +21,8 @@ export class PlayerProfile {
     private playerData: PlayerDataService,
     private IDService: SteamIDService,
     private loading: LoadingController,
-    private navParams: NavParams
+    private navParams: NavParams,
+    public push: Push
   ) { }
 
   ionViewDidEnter() {
