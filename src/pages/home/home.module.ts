@@ -9,6 +9,7 @@ import { MatchDetailsCard } from '../components/match-details-card/match-details
 import { SteamIDService } from '../../providers/steamid-service';
 import { SteamUserService } from '../../providers/steam-user-service';
 import { PlayerDataService } from '../../providers/player-data-service';
+import { IonicPushService } from '../../providers/ionic-push-service';
 
 @NgModule({
     imports: [
@@ -26,7 +27,8 @@ import { PlayerDataService } from '../../providers/player-data-service';
     providers: [
         SteamIDService,
         SteamUserService,
-        PlayerDataService
+        PlayerDataService,
+        IonicPushService
     ],
     bootstrap: [Home],
     entryComponents: [

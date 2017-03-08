@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, LoadingController, NavParams } from 'ionic-angular';
 import { Observable } from 'rxjs';
-import { Push, PushToken } from '@ionic/cloud-angular';
+import { Database, Push, PushToken } from '@ionic/cloud-angular';
 
 import { SteamIDService } from '../../providers/steamid-service';
 import { PlayerDataService } from '../../providers/player-data-service';
+import { IonicPushService } from '../../providers/ionic-push-service';
 
 @Component({
   selector: 'player-profile',
@@ -22,13 +23,15 @@ export class PlayerProfile {
     private IDService: SteamIDService,
     private loading: LoadingController,
     private navParams: NavParams,
-    public push: Push
+    private push: Push,
+    private ionicPushService: IonicPushService,
+    private db: Database
   ) { }
 
   ionViewDidEnter() {
     this.playerName = this.navParams.get('playerName');
-    this.playerId = this.navParams.get('playerId');    
-    
+    this.playerId = this.navParams.get('playerId');
+
     let loader = this.loading.create({
       content: 'Getting match data...'
     });
@@ -48,7 +51,7 @@ export class PlayerProfile {
     });
   };
 
-  public onInfiniteScroll(scroll) {
+  public onInfiniteScroll(scroll): void {
     let last_match_id = this.matchDetails[this.matchDetails.length - 1].match_id;
     let match_history = this.playerData.getMatchHistory(this.playerId, last_match_id);
 
@@ -61,6 +64,23 @@ export class PlayerProfile {
         scroll.complete();
         console.log(err);
       });
+  }
+
+  public inviteToPlay(): void {
+    this.getPushToken()
+      .subscribe((user) => {
+        console.log(user);
+        this.ionicPushService.sendNotification(this.playerName, user.token)
+        .subscribe(() => {
+          console.log('completed');
+        });
+      });
+  }
+
+  public getPushToken(): Observable<any> {
+    let users = this.db.collection('users');
+    this.db.connect();
+    return users.find({ id: this.playerId }).fetch();
   }
 
   public loadMatchDetails(matchHistory: Observable<any>): Observable<any> {

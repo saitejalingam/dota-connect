@@ -2,12 +2,15 @@ player-profile {
     .header-md::after {
         background-image: none;
     }
-    
-    .toolbar-title {
-        color: $grey;
+
+    .profile-toolbar {
+        background: url("../assets/images/black_background.jpg");
+        background-position: 15% 25%;
     }
 
-    .bar-button {
-        color: $grey;
+    .profile-nav {
+        button, .profile-title>div {
+            color: $grey;
+        }
     }
 }

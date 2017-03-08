@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class PlayerDataService {
-    constructor(public http: Http) {}
+    constructor(public http: Http) { }
 
     public getMatchHistory(player_id: any, last_match_id?: any): Observable<any> {
         let baseUrl = 'http://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/v1';

@@ -20,7 +20,7 @@ export class MyApp implements OnInit {
     public platform: Platform,
     private steamIDService: SteamIDService,
     private dotaDataService: DotaDataService,
-    public push: Push
+    private push: Push
   ) { }
 
   ngOnInit() { this.initializeApp(); };

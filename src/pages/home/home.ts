@@ -1,6 +1,7 @@
 import { Component, ViewChild, OnInit, NgZone } from '@angular/core';
 import { NavController, LoadingController, MenuController } from 'ionic-angular';
 import { Splashscreen } from 'ionic-native';
+import { Database, Push } from '@ionic/cloud-angular';
 
 import { Login } from '../../login/login';
 import { PlayerProfile } from '../player-profile/player-profile';
@@ -26,8 +27,24 @@ export class Home {
         private steamUserService: SteamUserService,
         private loading: LoadingController,
         private zone: NgZone,
-        private menuCtrl: MenuController
+        private menuCtrl: MenuController,
+        private db: Database,
+        private push: Push
     ) { }
+
+    ionViewCanEnter() {
+        this.db.connect();
+        this.db.collection('users').upsert({
+            id: this.steamIDService.getID(),
+            token: this.push.token.token
+        }).subscribe(() => {
+            this.db.disconnect();
+            return true;
+        }, () => {
+            console.log('Could not update push token');
+            return true;
+        });
+    }
 
     ionViewDidEnter() {
         let loader = this.loading.create({
