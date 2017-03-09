@@ -67,10 +67,7 @@ export class Home {
                 this.steamUserService.friends = friends;
                 this.offlineFriends = friends.filter((o) => { return o.personastate === 0; }).sort(this.sortByLastLogOff);
                 this.onlineFriends = friends.filter((o) => { return o.personastate > 0; });
-                this.nav.setRoot(PlayerProfile, {
-                    playerId: this.profile.steamid,
-                    playerName: this.profile.personaname
-                });
+                this.navigateToProfile();
                 
                 loader.dismiss();
             }, (err) => {
@@ -99,11 +96,11 @@ export class Home {
             });
     }
 
-    public navigateToProfile(player) {
+    public navigateToProfile(friend?) {
         this.menuCtrl.close();
         this.nav.setRoot(PlayerProfile, {
-            playerId: player.steamid,
-            playerName: player.personaname
+            player: this.profile,
+            friend: friend ? friend : this.profile
         });
     }
 

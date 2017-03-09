@@ -1,11 +1,11 @@
 <ion-menu [content]="appcontent">
     <ion-header class="profile-header">
-        <div class="profile-container" (click)="navigateToProfile(profile)">
+        <div class="profile-container" (click)="navigateToProfile()">
             <img class="profile-img" [src]="profile?.avatarmedium">
             <div class="profile-text">
                 <ion-title>{{ profile?.personaname }}</ion-title>
-                <div>Offline</div>
-                <div>Last seen 4 months ago</div>
+                <div *ngIf="profile?.personastate !== 0">{{ profile?.personastate }}</div>
+                <div *ngIf="profile?.personastate === 0">Last online {{ (profile?.lastlogoff | amFromUnix) | amTimeAgo }}</div>
             </div>
         </div>
     </ion-header>

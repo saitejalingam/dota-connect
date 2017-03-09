@@ -3,31 +3,34 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title class="profile-title">{{ playerName }}</ion-title>
     <ion-buttons start>
       <button ion-button icon-only>
         <ion-icon name="more"></ion-icon>
       </button>
     </ion-buttons>
-
   </ion-navbar>
 
-  <ion-toolbar class="profile-toolbar">
-    <ion-buttons>
-      <button ion-button color="light" (click)="inviteToPlay()"> Invite to Play </button>
-    </ion-buttons>
-    <ion-buttons>
-      <button ion-button color="light"> Message </button>
-    </ion-buttons>
+  <ion-toolbar>
+    <div class="friend-info">
+      <img class="profile-img" [src]="friend?.avatarfull">
+      <div class="friend-status">
+        <h5 *ngIf="friend?.realname">{{ friend.realname }}</h5>
+        <h5>{{ friend?.personaname }}</h5>
+        <h6 *ngIf="friend?.personastate !== 0">{{ friend?.personastate }}</h6>
+        <h6 *ngIf="friend?.personastate === 0">Last online {{ (friend.lastlogoff | amFromUnix) | amTimeAgo }}</h6>
+
+        <button ion-button color="light" clear icon-left class="invite-btn" (click)="inviteToPlay()">
+           <ion-icon name="game-controller-b"></ion-icon>
+           Invite to Play 
+        </button>
+      </div>
+    </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <div *ngFor="let match of matchDetails">
-    <match-details-card *ngIf="match" [match]="match" [playerId]="playerId"></match-details-card>
-  </div>
-
-  <ion-infinite-scroll (ionInfinite)="onInfiniteScroll($event)">
-    <ion-infinite-scroll-content>Loading...</ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+<ion-content padding margin-top>
+  <ion-tabs tabsPlacement="top">
+    <ion-tab [root]="tabOne" [rootParams]="tabOneParams" tabTitle="RECENT GAMES"></ion-tab>
+    <ion-tab [root]="tabTwo" tabTitle="MESSAGES"></ion-tab>
+  </ion-tabs>
 </ion-content>

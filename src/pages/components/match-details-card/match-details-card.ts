@@ -27,7 +27,7 @@ export class MatchDetailsCard implements OnChanges {
     }
 
     public getHeroImageURL(heroid) {
-        return 'http://cdn.dota2.com/apps/dota2/images/heroes/' + this.dataService.getHeroNameByID(heroid) + '_full.png';
+        return 'http://cdn.dota2.com/apps/dota2/images/heroes/' + this.dataService.getHeroNameByID(heroid) + '_lg.png';
     }
 
     public getAccountID(playerId: string): number {

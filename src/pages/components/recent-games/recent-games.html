@@ -1,0 +1,13 @@
+<ion-content>
+  <div *ngFor="let match of matchDetails">
+    <match-details-card *ngIf="match" [match]="match" [playerId]="playerId"></match-details-card>
+  </div>
+
+  <div class="history-not-shared" *ngIf="!historyShared">
+    <h4>"Cannot get match history for a user that hasn't allowed it"</h4>
+  </div>
+
+  <ion-infinite-scroll (ionInfinite)="onInfiniteScroll($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

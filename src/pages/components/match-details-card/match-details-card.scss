@@ -2,7 +2,7 @@ match-details-card {
     .hero-card {
         margin: 4% 0 6%;
         position: relative;
-        height: 144px;
+        height: 115px;
         color: white;
 
         .hero-details {
@@ -32,9 +32,9 @@ match-details-card {
         &:before {
             content: '';
 	        position: absolute;
-            height: 144px;
+            height: 115px;
             width: 100%;
-            background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 10%, #002000 65%, #000000 95%) 
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 10%, #002000 50%, #000000 95%) 
         }
     }
 
@@ -42,9 +42,9 @@ match-details-card {
         &:before {
             content: '';
 	        position: absolute;
-            height: 144px;
+            height: 115px;
             width: 100%;
-            background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 10%, #300000 65%, #000000 95%) 
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 10%, #300000 50%, #000000 95%) 
         }
     }
 }

@@ -1,16 +1,54 @@
 player-profile {
-    .header-md::after {
-        background-image: none;
+    .recent-games {
+        color: black;
     }
 
-    .profile-toolbar {
-        background: url("../assets/images/black_background.jpg");
-        background-position: 15% 25%;
+    .header-md::after {
+        background-image: none;
     }
 
     .profile-nav {
         button, .profile-title>div {
             color: $grey;
         }
+    }
+
+    .tabs-md {
+        .tabbar {
+            background: white;
+        }
+
+        .tab-button {
+            min-height: 4.0rem;
+        }
+    }
+
+    .toolbar-md {
+        padding: 0;
+    }
+
+    .friend-info {
+        background: url("../assets/images/black_background.jpg");
+        background-position: 15% 20%;
+        color: white;
+    }
+
+    .profile-img {
+        height: 120px;
+        margin: 20px 30px;
+    }
+
+    .friend-status {
+        display: inline-block;
+        position: absolute;
+        top: 30px;
+        left: 45%;
+    }
+
+    .invite-btn {
+        font-size: 20px;
+        font-family: Radiance-SemiBold;
+        margin: 15px 0 0;
+        padding: 0;
     }
 }
