@@ -32,8 +32,8 @@ export class FriendsList {
     }
 
     private sortByState(a, b): number {
-        if (a.personastate < b.personastate) { return 1; }
-        if (a.personastate > b.personastate) { return -1; }
+        if (a.personastate > b.personastate) { return 1; }
+        if (a.personastate < b.personastate) { return -1; }
         return 0;
     }
 
