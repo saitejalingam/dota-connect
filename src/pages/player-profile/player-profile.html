@@ -16,7 +16,7 @@
       <div class="friend-status">
         <h5 *ngIf="friend?.realname">{{ friend.realname }}</h5>
         <h5>{{ friend?.personaname }}</h5>
-        <h6 *ngIf="friend?.personastate !== 0">{{ friend?.personastate }}</h6>
+        <h6 *ngIf="friend?.personastate !== 0">{{ friend?.personastate | playerStatus }}</h6>
         <h6 *ngIf="friend?.personastate === 0">Last online {{ (friend.lastlogoff | amFromUnix) | amTimeAgo }}</h6>
 
         <button ion-button color="light" clear icon-left class="invite-btn" (click)="inviteToPlay()">

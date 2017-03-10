@@ -3,8 +3,11 @@
         <div class="profile-container" (click)="navigateToProfile()">
             <img class="profile-img" [src]="profile?.avatarmedium">
             <div class="profile-text">
-                <ion-title>{{ profile?.personaname }}</ion-title>
-                <div *ngIf="profile?.personastate !== 0">{{ profile?.personastate }}</div>
+                <ion-title>
+                    <h4 *ngIf="profile?.realname">{{ profile?.realname }}</h4>
+                    <h4>{{ profile?.personaname }}</h4>
+                </ion-title>
+                <div *ngIf="profile?.personastate !== 0">{{ profile?.personastate | playerStatus }}</div>
                 <div *ngIf="profile?.personastate === 0">Last online {{ (profile?.lastlogoff | amFromUnix) | amTimeAgo }}</div>
             </div>
         </div>

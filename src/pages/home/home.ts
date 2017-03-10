@@ -50,30 +50,30 @@ export class Home {
         let loader = this.loading.create({
             content: 'Getting player profile...'
         });
-        
+
         Splashscreen.hide();
         loader.present().then(() => {
             this.steamUserService.getPlayerProfile()
-            .flatMap((profile) => {
-                this.profile = profile;
-                this.steamUserService.profile = profile;
-                return this.steamUserService.getPlayerFriends();
-            })
-            .flatMap((friendIDs) => {
-                this.steamUserService.friendIDs = friendIDs.map((friend) => { return friend.steamid; });
-                return this.steamUserService.getFriendSummaries();
-            })
-            .subscribe((friends) => {
-                this.steamUserService.friends = friends;
-                this.offlineFriends = friends.filter((o) => { return o.personastate === 0; }).sort(this.sortByLastLogOff);
-                this.onlineFriends = friends.filter((o) => { return o.personastate > 0; });
-                this.navigateToProfile();
-                
-                loader.dismiss();
-            }, (err) => {
-                loader.dismiss();
-                console.log(err);
-            });
+                .flatMap((profile) => {
+                    this.profile = profile;
+                    this.steamUserService.profile = profile;
+                    return this.steamUserService.getPlayerFriends();
+                })
+                .flatMap((friendIDs) => {
+                    this.steamUserService.friendIDs = friendIDs.map((friend) => { return friend.steamid; });
+                    return this.steamUserService.getFriendSummaries();
+                })
+                .subscribe((friends) => {
+                    this.steamUserService.friends = friends;
+                    this.offlineFriends = friends.filter((o) => { return o.personastate === 0; }).sort(this.sortByLastLogOff);
+                    this.onlineFriends = friends.filter((o) => { return o.personastate > 0; });
+                    this.navigateToProfile();
+
+                    loader.dismiss();
+                }, (err) => {
+                    loader.dismiss();
+                    console.log(err);
+                });
         });
     }
 
@@ -105,11 +105,11 @@ export class Home {
     }
 
     public toggleHideOnline() {
-        this.zone.run(()=> { this.hideOnline = !this.hideOnline; });
+        this.zone.run(() => { this.hideOnline = !this.hideOnline; });
     }
 
     public toggleHideOffline() {
-        this.zone.run(()=> { this.hideOffline = !this.hideOffline; });
+        this.zone.run(() => { this.hideOffline = !this.hideOffline; });
     }
 
     public logout() {

@@ -8,6 +8,7 @@ import { PlayerProfile } from '../player-profile/player-profile';
 import { MatchDetailsCard } from '../components/match-details-card/match-details-card';
 import { RecentGames } from '../components/recent-games/recent-games';
 import { Messages } from '../components/messages/messages';
+import { PlayerStatusPipe } from '../../providers/player-status-pipe';
 
 import { SteamIDService } from '../../providers/steamid-service';
 import { SteamUserService } from '../../providers/steam-user-service';
@@ -27,7 +28,8 @@ import { IonicPushService } from '../../providers/ionic-push-service';
         PlayerProfile,
         MatchDetailsCard,
         RecentGames,
-        Messages
+        Messages,
+        PlayerStatusPipe
     ],
     providers: [
         SteamIDService,
