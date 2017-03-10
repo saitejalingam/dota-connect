@@ -38,8 +38,8 @@ export class FriendsList {
     }
 
     private sortByLastLogOff(a, b): number {
-        if (a.lastlogoff > b.lastlogoff) { return 1; }
-        if (a.lastlogoff < b.lastlogoff) { return -1; }
+        if (a.lastlogoff < b.lastlogoff) { return 1; }
+        if (a.lastlogoff > b.lastlogoff) { return -1; }
         return 0;
     }
 
