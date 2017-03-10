@@ -1,12 +1,14 @@
-.history-not-shared {
-    position: absolute;
-    top: 30%;
-    left: 50%;
-    width: 70%;
-    text-align: center;
-    transform: translate(-50%, -50%);
-}
+recent-games {
+    .history-not-shared {
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        width: 70%;
+        text-align: center;
+        transform: translate(-50%, -50%);
+    }
 
-.tab-button-text {
-    font-family: Radiance-Bold;
+    .tab-button-text {
+        font-family: Radiance-Bold;
+    }
 }

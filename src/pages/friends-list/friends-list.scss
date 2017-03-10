@@ -1,0 +1,25 @@
+friends-list {
+    .header-md::after {
+        background-image: none;
+    }
+
+    .friends-nav {
+        button, .friends-title>div {
+            color: $grey;
+        }
+    }
+    
+    .sorted-list {
+        margin-bottom: 10px;
+
+        .item:first-child {
+            margin-top: 10px
+        }
+        
+        .item:last-child {
+            .item-inner {
+                border: 0;
+            }
+        }
+    }
+}

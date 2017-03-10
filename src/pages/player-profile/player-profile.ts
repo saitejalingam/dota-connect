@@ -33,13 +33,14 @@ export class PlayerProfile {
     this.tabOne = RecentGames;
     this.tabTwo = Messages;
     this.tabOneParams = {
-      player: this.navParams.get('player')
+      player: this.navParams.get('friend')
     };
   }
 
-  ionViewDidEnter() {
+  ionViewCanEnter() {
     this.friend = this.navParams.get('friend');
     this.player = this.navParams.get('player');
+    return true;
   };
 
   public inviteToPlay(): void {

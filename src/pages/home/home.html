@@ -1,6 +1,6 @@
 <ion-menu [content]="appcontent">
     <ion-header class="profile-header">
-        <div class="profile-container" (click)="navigateToProfile()">
+        <div class="profile-container">
             <img class="profile-img" [src]="profile?.avatarmedium">
             <div class="profile-text">
                 <ion-title>
@@ -13,35 +13,10 @@
         </div>
     </ion-header>
     <ion-content>
-        <ion-refresher (ionRefresh)="updateFriends($event)">
-            <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles">
-            </ion-refresher-content>
-        </ion-refresher>
         <ion-list>
-            <ion-list-header>Friends</ion-list-header>
-            <button ion-item detail-none (click)="toggleHideOnline()" class="parent-button">Online
-                <ion-icon item-right name="{{ hideOnline ? 'arrow-dropdown' : 'arrow-dropup' }}"></ion-icon>
-            </button>
-            <div [hidden]="hideOnline">
-                <button ion-item detail-none *ngFor="let friend of onlineFriends" class="friend-item" (click)="navigateToProfile(friend)">
-                {{ friend?.personaname }}
-                <ion-avatar item-left>
-                    <img [src]="friend?.avatar">
-                </ion-avatar>
-            </button>
-            </div>
-
-            <button ion-item detail-none (click)="toggleHideOffline()" class="parent-button">Inactive
-                <ion-icon item-right name="{{ hideOffline ? 'arrow-dropdown' : 'arrow-dropup' }}"></ion-icon>
-            </button>
-            <div [hidden]="hideOffline">
-                <button ion-item detail-none *ngFor="let friend of offlineFriends" class="friend-item" (click)="navigateToProfile(friend)">
-                {{ friend?.personaname }}
-                <ion-avatar item-left>
-                    <img [src]="friend?.avatar">
-                </ion-avatar>
-            </button>
-            </div>
+            <ion-list-header>Connect</ion-list-header>
+            <button class="parent-button" ion-item detail-none>Friends</button>
+            <button class="parent-button" ion-item detail-none>Teams</button>
 
             <ion-list-header>App</ion-list-header>
             <button class="parent-button" ion-item detail-none>Settings</button>

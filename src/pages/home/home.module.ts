@@ -4,10 +4,11 @@ import { MomentModule } from 'angular2-moment/moment.module';
 
 import { Home } from './home';
 import { PlayerProfile } from '../player-profile/player-profile';
+import { FriendsList } from '../friends-list/friends-list';
 
-import { MatchDetailsCard } from '../components/match-details-card/match-details-card';
 import { RecentGames } from '../components/recent-games/recent-games';
 import { Messages } from '../components/messages/messages';
+import { MatchDetailsCard } from '../components/match-details-card/match-details-card';
 import { PlayerStatusPipe } from '../../providers/player-status-pipe';
 
 import { SteamIDService } from '../../providers/steamid-service';
@@ -26,6 +27,7 @@ import { IonicPushService } from '../../providers/ionic-push-service';
     declarations: [
         Home,
         PlayerProfile,
+        FriendsList,
         MatchDetailsCard,
         RecentGames,
         Messages,
@@ -39,6 +41,7 @@ import { IonicPushService } from '../../providers/ionic-push-service';
     ],
     bootstrap: [Home],
     entryComponents: [
+        FriendsList,
         PlayerProfile,
         RecentGames,
         Messages

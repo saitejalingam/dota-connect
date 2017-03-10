@@ -5,6 +5,7 @@ import { Database, Push } from '@ionic/cloud-angular';
 
 import { Login } from '../../login/login';
 import { PlayerProfile } from '../player-profile/player-profile';
+import { FriendsList } from '../friends-list/friends-list';
 
 import { SteamIDService } from '../../providers/steamid-service';
 import { SteamUserService } from '../../providers/steam-user-service';
@@ -16,18 +17,12 @@ import { SteamUserService } from '../../providers/steam-user-service';
 export class Home {
     @ViewChild('appcontent') nav;
     public profile: any;
-    public onlineFriends: any;
-    public offlineFriends: any;
-    public hideOnline: boolean = false;
-    public hideOffline: boolean = true;
 
     constructor(
         private navCtrl: NavController,
         private steamIDService: SteamIDService,
         private steamUserService: SteamUserService,
         private loading: LoadingController,
-        private zone: NgZone,
-        private menuCtrl: MenuController,
         private db: Database,
         private push: Push
     ) { }
@@ -65,9 +60,10 @@ export class Home {
                 })
                 .subscribe((friends) => {
                     this.steamUserService.friends = friends;
-                    this.offlineFriends = friends.filter((o) => { return o.personastate === 0; }).sort(this.sortByLastLogOff);
-                    this.onlineFriends = friends.filter((o) => { return o.personastate > 0; });
-                    this.navigateToProfile();
+                    this.nav.setRoot(FriendsList, {
+                        profile: this.profile,
+                        friends: friends
+                    });
 
                     loader.dismiss();
                 }, (err) => {
@@ -75,41 +71,6 @@ export class Home {
                     console.log(err);
                 });
         });
-    }
-
-    private sortByLastLogOff(a, b): number {
-        if (a.lastlogoff < b.lastlogoff) { return 1; }
-        if (a.lastlogoff > b.lastlogoff) { return -1; }
-        return 0;
-    }
-
-    public updateFriends(refresher) {
-        this.steamUserService.getFriendSummaries()
-            .subscribe((friends) => {
-                this.steamUserService.friends = friends;
-                this.offlineFriends = friends.filter((o) => { return o.personastate === 0; }).sort(this.sortByLastLogOff);
-                this.onlineFriends = friends.filter((o) => { return o.personastate > 0; }).sort(this.sortByLastLogOff);
-                refresher.complete();
-            }, (err) => {
-                refresher.complete();
-                console.log(err);
-            });
-    }
-
-    public navigateToProfile(friend?) {
-        this.menuCtrl.close();
-        this.nav.setRoot(PlayerProfile, {
-            player: this.profile,
-            friend: friend ? friend : this.profile
-        });
-    }
-
-    public toggleHideOnline() {
-        this.zone.run(() => { this.hideOnline = !this.hideOnline; });
-    }
-
-    public toggleHideOffline() {
-        this.zone.run(() => { this.hideOffline = !this.hideOffline; });
     }
 
     public logout() {

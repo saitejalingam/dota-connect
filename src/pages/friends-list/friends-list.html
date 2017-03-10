@@ -1,0 +1,39 @@
+<ion-header>
+    <ion-navbar class="friends-nav">
+        <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+        <ion-title class="friends-title">Friends</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-refresher (ionRefresh)="updateFriends($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles">
+        </ion-refresher-content>
+    </ion-refresher>
+
+    <ion-list>
+        <ion-list-header>Online</ion-list-header>
+        <div class="sorted-list">
+            <ion-item *ngFor="let friend of online" (click)="navigateToProfile(friend)">
+                <ion-avatar item-left>
+                    <img [src]="friend?.avatar">
+                </ion-avatar>
+                <h2>{{ friend?.personaname }}</h2>
+                <h6>{{ friend?.personastate | playerStatus }}</h6>
+            </ion-item>
+        </div>
+
+        <ion-list-header>Inactive</ion-list-header>
+        <div class="sorted-list">
+            <ion-item *ngFor="let friend of offline" (click)="navigateToProfile(friend)">
+                <ion-avatar item-left>
+                    <img [src]="friend?.avatar">
+                </ion-avatar>
+                <h2>{{ friend?.personaname }}</h2>
+                <h6>Last online {{ (friend.lastlogoff | amFromUnix) | amTimeAgo }}</h6>
+            </ion-item>
+        </div>
+    </ion-list>
+</ion-content>
