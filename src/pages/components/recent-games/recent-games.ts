@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, NavParams, AlertController, PopoverController } from 'ionic-angular';
+import { LoadingController, NavParams } from 'ionic-angular';
 import { Observable } from 'rxjs';
 
 import { PlayerDataService } from '../../../providers/player-data-service';

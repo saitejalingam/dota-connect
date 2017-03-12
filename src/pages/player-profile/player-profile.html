@@ -14,10 +14,10 @@
     <div class="friend-info">
       <img class="profile-img" [src]="friend?.avatarfull">
       <div class="friend-status">
-        <h5 *ngIf="friend?.realname">{{ friend.realname }}</h5>
-        <h5>{{ friend?.personaname }}</h5>
-        <h6 *ngIf="friend?.personastate !== 0">{{ friend?.personastate | playerStatus }}</h6>
-        <h6 *ngIf="friend?.personastate === 0">Last online {{ (friend.lastlogoff | amFromUnix) | amTimeAgo }}</h6>
+        <h6 *ngIf="friend?.realname">{{ friend.realname }}</h6>
+        <h6>{{ friend?.personaname }}</h6>
+        <p *ngIf="friend?.personastate !== 0">{{ friend?.personastate | playerStatus }}</p>
+        <p *ngIf="friend?.personastate === 0">Last online {{ (friend.lastlogoff | amFromUnix) | amTimeAgo }}</p>
 
         <button ion-button color="light" clear icon-left class="invite-btn" (click)="inviteToPlay()">
            <ion-icon name="game-controller-b"></ion-icon>
@@ -30,7 +30,7 @@
 
 <ion-content padding>
   <ion-tabs tabsPlacement="top">
+    <ion-tab [root]="tabTwo" [rootParams]="tabTwoParams" tabTitle="MESSAGES"></ion-tab>
     <ion-tab [root]="tabOne" [rootParams]="tabOneParams" tabTitle="RECENT GAMES"></ion-tab>
-    <ion-tab [root]="tabTwo" tabTitle="MESSAGES"></ion-tab>
   </ion-tabs>
 </ion-content>

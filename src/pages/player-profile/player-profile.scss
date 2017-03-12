@@ -30,22 +30,21 @@ player-profile {
     }
 
     .profile-img {
-        height: 120px;
-        width: 120px;
-        margin: 20px 30px;
+        height: 90px;
+        width: 90px;
+        margin: 15px 30px;
     }
 
     .friend-status {
         display: inline-block;
         position: absolute;
-        top: 30px;
-        left: 45%;
+        top: 20px;
     }
 
     .invite-btn {
         font-size: 20px;
         font-family: Radiance-SemiBold;
-        margin: 15px 0 0;
+        margin: 5px 0 0;
         padding: 0;
     }
 }

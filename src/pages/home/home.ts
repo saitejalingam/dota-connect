@@ -41,6 +41,11 @@ export class Home {
         });
     }
 
+    ionViewCanLeave() {
+        this.db.disconnect();
+        return true;
+    }
+
     ionViewDidEnter() {
         let loader = this.loading.create({
             content: 'Getting player profile...'
@@ -75,6 +80,7 @@ export class Home {
 
     public logout() {
         this.steamIDService.removeID();
+        this.db.disconnect();
         this.navCtrl.setRoot(Login);
     }
 }

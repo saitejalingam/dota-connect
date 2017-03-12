@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams, AlertController, PopoverController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, PopoverController, Keyboard } from 'ionic-angular';
 import { Observable } from 'rxjs';
 import { Database, Push, PushToken } from '@ionic/cloud-angular';
 
@@ -28,12 +28,18 @@ export class PlayerProfile {
     private popover: PopoverController,
     private push: Push,
     private ionicPushService: IonicPushService,
-    private db: Database
+    private db: Database,
+    private keyboard: Keyboard
   ) { 
     this.tabOne = RecentGames;
-    this.tabTwo = Messages;
     this.tabOneParams = {
       player: this.navParams.get('friend')
+    };
+    
+    this.tabTwo = Messages;
+    this.tabTwoParams = {
+      sender: this.navParams.get('player'),
+      recipient: this.navParams.get('friend')
     };
   }
 
