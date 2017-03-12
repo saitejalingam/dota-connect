@@ -10,7 +10,7 @@ app-home {
     .profile-header {
         background: url("../assets/images/black_background.jpg");
         background-position: 15% 20%;
-        height: 20%;
+        height: 130px;
 
         .profile-container {
             padding: 25px;
@@ -19,6 +19,9 @@ app-home {
 
         .profile-text {
             vertical-align: top;
+            margin-top: 5px;
+            margin-left: 5px;
+            width: 170px;
             display: inline-block;
             
             div {
@@ -51,7 +54,5 @@ app-home {
         font-size: 11px;
         letter-spacing: 1px;
         text-transform: uppercase;
-    }
-
-    
+    }   
 }
