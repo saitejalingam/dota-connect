@@ -15,7 +15,8 @@ import { IonicPushService } from '../../providers/ionic-push-service';
 export class PlayerProfile {
   private player: any;
   private friend: any;
-  
+  private isPinned: boolean;
+
   private tabOne: any;
   private tabTwo: any;
   private tabOneParams: any;
@@ -30,12 +31,12 @@ export class PlayerProfile {
     private ionicPushService: IonicPushService,
     private db: Database,
     private keyboard: Keyboard
-  ) { 
+  ) {
     this.tabOne = RecentGames;
     this.tabOneParams = {
       player: this.navParams.get('friend')
     };
-    
+
     this.tabTwo = Messages;
     this.tabTwoParams = {
       sender: this.navParams.get('player'),
@@ -46,6 +47,7 @@ export class PlayerProfile {
   ionViewCanEnter() {
     this.friend = this.navParams.get('friend');
     this.player = this.navParams.get('player');
+    this.isPinned = this.navParams.get('isPinned');
     return true;
   };
 
@@ -56,12 +58,33 @@ export class PlayerProfile {
         return this.ionicPushService.sendNotification(this.player.personaname, user.token);
       })
       .subscribe(() => {
+        this.db.disconnect();
         this.alert.create({
           title: 'Invite sent!',
           subTitle: 'Your invitation to play has been sent to ' + this.friend.personaname,
           buttons: ['Dismiss']
         }).present();
       });
+  }
+
+  private addPinned(): void {
+    this.db.connect();
+    this.db.collection(this.player.steamid + '_pinned').upsert({
+      id: this.friend.steamid
+    }).subscribe(() => {
+      this.isPinned = true;
+      this.db.disconnect();
+    });
+  }
+
+  private removePinned(): void {
+    this.db.connect();
+    this.db.collection(this.player.steamid + '_pinned').remove({
+      id: this.friend.steamid
+    }).subscribe(() => {
+      this.isPinned = false;
+      this.db.disconnect();
+    });
   }
 
   public getPushToken(): Observable<any> {

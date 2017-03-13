@@ -14,26 +14,43 @@
     </ion-refresher>
 
     <ion-list>
-        <ion-list-header>Online</ion-list-header>
-        <div class="sorted-list">
-            <ion-item *ngFor="let friend of online" (click)="navigateToProfile(friend)">
-                <ion-avatar item-left>
-                    <img [src]="friend?.avatar">
-                </ion-avatar>
-                <h2>{{ friend?.personaname }}</h2>
-                <h6>{{ friend?.personastate | playerStatus }}</h6>
-            </ion-item>
+         <div *ngIf="pinned.length">
+            <ion-list-header>Favorites</ion-list-header>
+            <div class="sorted-list">
+                <ion-item *ngFor="let friend of pinned" (click)="navigateToProfile(friend)">
+                    <ion-avatar item-left>
+                        <img [src]="friend?.avatar">
+                    </ion-avatar>
+                    <h2>{{ friend?.personaname }}</h2>
+                    <h6>{{ friend?.personastate | playerStatus }}</h6>
+                </ion-item>
+            </div>
         </div>
 
-        <ion-list-header>Inactive</ion-list-header>
-        <div class="sorted-list">
-            <ion-item *ngFor="let friend of offline" (click)="navigateToProfile(friend)">
-                <ion-avatar item-left>
-                    <img [src]="friend?.avatar">
-                </ion-avatar>
-                <h2>{{ friend?.personaname }}</h2>
-                <h6>Last online {{ (friend.lastlogoff | amFromUnix) | amTimeAgo }}</h6>
-            </ion-item>
+        <div *ngIf="online.length">
+            <ion-list-header>Online</ion-list-header>
+            <div class="sorted-list">
+                <ion-item *ngFor="let friend of online" (click)="navigateToProfile(friend)">
+                    <ion-avatar item-left>
+                        <img [src]="friend?.avatar">
+                    </ion-avatar>
+                    <h2>{{ friend?.personaname }}</h2>
+                    <h6>{{ friend?.personastate | playerStatus }}</h6>
+                </ion-item>
+            </div>
+        </div>
+
+        <div *ngIf="offline.length">
+            <ion-list-header>Inactive</ion-list-header>
+            <div class="sorted-list">
+                <ion-item *ngFor="let friend of offline" (click)="navigateToProfile(friend)">
+                    <ion-avatar item-left>
+                        <img [src]="friend?.avatar">
+                    </ion-avatar>
+                    <h2>{{ friend?.personaname }}</h2>
+                    <h6>Last online {{ (friend.lastlogoff | amFromUnix) | amTimeAgo }}</h6>
+                </ion-item>
+            </div>
         </div>
     </ion-list>
 </ion-content>

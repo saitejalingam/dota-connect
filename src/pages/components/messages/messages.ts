@@ -43,7 +43,7 @@ export class Messages implements AfterViewChecked {
             }, (error) => {
                 console.log('Could not fetch messages!');
                 loader.dismiss();
-            })
+            });
         });
     }
 

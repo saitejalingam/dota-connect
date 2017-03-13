@@ -12,6 +12,8 @@
 
   <ion-toolbar>
     <div class="friend-info">
+      <ion-icon *ngIf="!isPinned" class="pin-icon" name="md-star-outline" (click)="addPinned()"></ion-icon>
+      <ion-icon *ngIf="isPinned" class="pin-icon" name="md-star" (click)="removePinned()"></ion-icon>
       <img class="profile-img" [src]="friend?.avatarfull">
       <div class="friend-status">
         <h6 *ngIf="friend?.realname">{{ friend.realname }}</h6>
