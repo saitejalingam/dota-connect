@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit, NgZone } from '@angular/core';
-import { NavController, LoadingController, MenuController } from 'ionic-angular';
+import { NavController, LoadingController, MenuController, AlertController } from 'ionic-angular';
 import { Splashscreen } from 'ionic-native';
 import { Database, Push } from '@ionic/cloud-angular';
 
@@ -24,7 +24,8 @@ export class Home {
         private steamUserService: SteamUserService,
         private loading: LoadingController,
         private db: Database,
-        private push: Push
+        private push: Push,
+        private alert: AlertController
     ) { }
 
     ionViewCanEnter() {
@@ -36,8 +37,11 @@ export class Home {
             this.db.disconnect();
             return true;
         }, () => {
-            console.log('Could not update push token');
-            return true;
+            this.alert.create({
+                title: 'API Failed',
+                message: 'Sorry! Failed to register for notifications. Please try turning on Notifications and restarting the App.',
+                buttons: ['Dismiss']
+            }).present();
         });
     }
 
@@ -73,6 +77,11 @@ export class Home {
                     loader.dismiss();
                 }, (err) => {
                     loader.dismiss();
+                    this.alert.create({
+                        title: 'API Failed',
+                        message: 'Oops! Failed to get player info. Please try again.',
+                        buttons: ['Dismiss']
+                    }).present();
                     console.log(err);
                 });
         });

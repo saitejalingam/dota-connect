@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 import { InAppBrowser, Splashscreen } from 'ionic-native';
 
 import { SteamIDService } from '../providers/steamid-service';
@@ -13,7 +13,8 @@ export class Login {
   private baseUrl: string = 'https://dota-connect-server.herokuapp.com/api/login';
   constructor(
     private navCtrl: NavController,
-    private steamIDService: SteamIDService
+    private steamIDService: SteamIDService,
+    private alert: AlertController
   ) { }
 
   ionViewDidEnter() {
@@ -35,6 +36,12 @@ export class Login {
           browser.close();
           this.navCtrl.setRoot(Home);
         }
+      }, (err) => {
+        this.alert.create({
+            title: 'Login Failed',
+            message: 'Please try again.',
+            buttons: ['Dismiss']
+        }).present();
       });
 
     browser.on('loaderror')

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, MenuController } from 'ionic-angular';
+import { NavController, NavParams, MenuController, AlertController } from 'ionic-angular';
 import { Database } from '@ionic/cloud-angular';
 
 import { PlayerProfile } from '../player-profile/player-profile';
@@ -15,14 +15,15 @@ export class FriendsList {
     private friends: any;
     private online: Array<any> = new Array();
     private offline: Array<any> = new Array();
-    private pinned: Array<any> = new Array();
+    private favorites: Array<any> = new Array();
 
     constructor(
         private nav: NavController,
         private navParams: NavParams,
         private menuCtrl: MenuController,
         private steamUserService: SteamUserService,
-        private db: Database
+        private db: Database,
+        private alert: AlertController
     ) { }
 
     ionViewCanEnter() {
@@ -30,10 +31,10 @@ export class FriendsList {
         this.friends = this.navParams.get('friends');
         this.online = this.friends.filter(o => o.personastate !== 0).sort(this.sortByState);
         this.offline = this.friends.filter(o => o.personastate === 0).sort(this.sortByLastLogOff);
-        this.db.collection(this.profile.steamid + '_pinned').fetch()
-            .subscribe((result: Array<any>) => {
-                this.pinned = this.friends.filter((o) => {
-                    return result.find(r => r.id === o.steamid);
+        this.db.collection('favorites').find({ id: this.profile.steamid }).fetch()
+            .subscribe((result) => {
+                this.favorites = this.friends.filter((o) => {
+                    return result.favorites.find(r => r === o.steamid);
                 });
                 
                 return true;
@@ -60,7 +61,11 @@ export class FriendsList {
                 refresher.complete();
             }, (err) => {
                 refresher.complete();
-                console.log(err);
+                this.alert.create({
+                    title: 'API Failed',
+                    message: 'Oops! Failed to update friends info. Please try again.',
+                    buttons: ['Dismiss']
+                }).present();
             });
     }
 
@@ -69,11 +74,7 @@ export class FriendsList {
         this.nav.push(PlayerProfile, {
             player: this.profile,
             friend: friend,
-            isPinned: this.isPinned(friend)
+            favorites: this.favorites.map((o) => { return o.steamid })
         });
-    }
-
-    private isPinned(friend: any) {
-        return this.pinned.find(p => p.steamid === friend.steamid);
     }
 }

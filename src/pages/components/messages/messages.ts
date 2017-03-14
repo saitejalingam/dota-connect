@@ -1,6 +1,6 @@
 import { Component, AfterViewChecked, ViewChild } from '@angular/core';
 import { Database } from '@ionic/cloud-angular';
-import { LoadingController, NavParams } from 'ionic-angular';
+import { LoadingController, NavParams, AlertController } from 'ionic-angular';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -18,7 +18,8 @@ export class Messages implements AfterViewChecked {
     constructor(
         private db: Database,
         private loading: LoadingController,
-        private navParams: NavParams
+        private navParams: NavParams,
+        private alert: AlertController
     ) { }
 
     ionViewDidLoad() {
@@ -41,7 +42,11 @@ export class Messages implements AfterViewChecked {
                 this.scrollToBottom();
                 loader.dismiss();
             }, (error) => {
-                console.log('Could not fetch messages!');
+                this.alert.create({
+                    title: 'API Failed',
+                    message: 'Oops! Failed to fetch messages. Please try again.',
+                    buttons: ['Dismiss']
+                }).present();
                 loader.dismiss();
             });
         });
@@ -73,6 +78,12 @@ export class Messages implements AfterViewChecked {
                 time: Date.now()
             }).subscribe(() => {
                 this.message = '';
+            }, (err) => {
+                this.alert.create({
+                    title: 'Send failed',
+                    message: 'Sorry! Failed to send messages at this moment. Please try again later.',
+                    buttons: ['Dismiss']
+                }).present();
             });
         }
     }

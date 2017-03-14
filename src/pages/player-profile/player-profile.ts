@@ -15,7 +15,8 @@ import { IonicPushService } from '../../providers/ionic-push-service';
 export class PlayerProfile {
   private player: any;
   private friend: any;
-  private isPinned: boolean;
+  private favorites: Array<any> = new Array();
+  private isFav: boolean;
 
   private tabOne: any;
   private tabTwo: any;
@@ -47,7 +48,8 @@ export class PlayerProfile {
   ionViewCanEnter() {
     this.friend = this.navParams.get('friend');
     this.player = this.navParams.get('player');
-    this.isPinned = this.navParams.get('isPinned');
+    this.favorites = this.navParams.get('favorites');
+    this.isFav = this.isFavorite();
     return true;
   };
 
@@ -67,23 +69,43 @@ export class PlayerProfile {
       });
   }
 
-  private addPinned(): void {
-    this.db.connect();
-    this.db.collection(this.player.steamid + '_pinned').upsert({
-      id: this.friend.steamid
-    }).subscribe(() => {
-      this.isPinned = true;
+  private addFavorite(): void {
+    this.favorites.push(this.friend.steamid);
+    this.updateFavorites().subscribe(() => {
+      this.isFav = true;
       this.db.disconnect();
+    }, (err) => {
+      this.alert.create({
+        title: 'Update failed!',
+        message: 'Oops! Could not update your selection. Please try again.',
+        buttons: ['Dismiss']
+      }).present();
     });
   }
 
-  private removePinned(): void {
-    this.db.connect();
-    this.db.collection(this.player.steamid + '_pinned').remove({
-      id: this.friend.steamid
-    }).subscribe(() => {
-      this.isPinned = false;
+  private removeFavorite(): void {
+    let index = this.favorites.findIndex((o) => {
+      return o === this.friend.steamid
+    });
+    this.favorites.splice(index, 1);
+
+    this.updateFavorites().subscribe(() => {
+      this.isFav = false;
       this.db.disconnect();
+    }, (err) => {
+      this.alert.create({
+        title: 'Update failed!',
+        message: 'Oops! Could not update your selection. Please try again.',
+        buttons: ['Dismiss']
+      }).present()
+    });
+  }
+
+  private updateFavorites(): Observable<any> {
+    this.db.connect();
+    return this.db.collection('favorites').upsert({
+      id: this.player.steamid,
+      favorites: this.favorites
     });
   }
 
@@ -91,5 +113,9 @@ export class PlayerProfile {
     let users = this.db.collection('users');
     this.db.connect();
     return users.find({ id: this.friend.steamid }).fetch();
+  }
+
+  private isFavorite() {
+    return this.favorites.find(p => p === this.friend.steamid);
   }
 }
