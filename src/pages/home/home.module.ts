@@ -5,6 +5,7 @@ import { MomentModule } from 'angular2-moment/moment.module';
 import { Home } from './home';
 import { PlayerProfile } from '../player-profile/player-profile';
 import { FriendsList } from '../friends-list/friends-list';
+import { Search } from '../search/search';
 
 import { RecentGames } from '../components/recent-games/recent-games';
 import { Messages } from '../components/messages/messages';
@@ -28,6 +29,7 @@ import { IonicPushService } from '../../providers/ionic-push-service';
         Home,
         PlayerProfile,
         FriendsList,
+        Search,
         MatchDetailsCard,
         RecentGames,
         Messages,
@@ -44,7 +46,8 @@ import { IonicPushService } from '../../providers/ionic-push-service';
         FriendsList,
         PlayerProfile,
         RecentGames,
-        Messages
+        Messages,
+        Search
     ]
 })
 export class HomeModule { }

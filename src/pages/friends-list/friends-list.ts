@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, MenuController, AlertController } from 'ionic-angular';
 import { Database } from '@ionic/cloud-angular';
 
+import { Search } from '../search/search';
 import { PlayerProfile } from '../player-profile/player-profile';
 
 import { SteamUserService } from '../../providers/steam-user-service';
@@ -49,6 +50,11 @@ export class FriendsList {
             });
     }
 
+    ionViewCanLeave() {
+        this.menuCtrl.close();
+        return true;
+    }
+
     private sortByState(a, b): number {
         if (a.personastate > b.personastate) { return 1; }
         if (a.personastate < b.personastate) { return -1; }
@@ -88,10 +94,17 @@ export class FriendsList {
     }
 
     public navigateToProfile(friend) {
-        this.menuCtrl.close();
         this.nav.push(PlayerProfile, {
             player: this.profile,
             friend: friend,
+            favorites: this.favorites.map((o) => { return o.steamid })
+        });
+    }
+
+    public enableSearch() {
+        this.nav.push(Search, {
+            player: this.profile,
+            friends: this.friends,
             favorites: this.favorites.map((o) => { return o.steamid })
         });
     }

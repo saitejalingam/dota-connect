@@ -1,9 +1,14 @@
 <ion-header>
     <ion-navbar class="friends-nav">
         <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
+            <ion-icon name="menu"></ion-icon>
+        </button>
         <ion-title class="friends-title">Friends</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="enableSearch()">
+                <ion-icon name="search"></ion-icon>
+            </button>
+        </ion-buttons>
     </ion-navbar>
 </ion-header>
 
@@ -14,12 +19,12 @@
     </ion-refresher>
 
     <ion-list>
-         <div *ngIf="favorites.length">
+        <div *ngIf="favorites.length">
             <ion-list-header>Favorites</ion-list-header>
             <div class="sorted-list">
                 <ion-item *ngFor="let friend of favorites" (click)="navigateToProfile(friend)">
                     <ion-avatar item-left>
-                        <img [src]="friend?.avatar">
+                        <img [src]="friend?.avatarmedium">
                     </ion-avatar>
                     <h2>{{ friend?.personaname }}</h2>
                     <h6 *ngIf="friend?.personastate !== 0">{{ friend?.personastate | playerStatus }}</h6>
@@ -33,7 +38,7 @@
             <div class="sorted-list">
                 <ion-item *ngFor="let friend of online" (click)="navigateToProfile(friend)">
                     <ion-avatar item-left>
-                        <img [src]="friend?.avatar">
+                        <img [src]="friend?.avatarmedium">
                     </ion-avatar>
                     <h2>{{ friend?.personaname }}</h2>
                     <h6>{{ friend?.personastate | playerStatus }}</h6>
@@ -46,7 +51,7 @@
             <div class="sorted-list">
                 <ion-item *ngFor="let friend of offline" (click)="navigateToProfile(friend)">
                     <ion-avatar item-left>
-                        <img [src]="friend?.avatar">
+                        <img [src]="friend?.avatarmedium">
                     </ion-avatar>
                     <h2>{{ friend?.personaname }}</h2>
                     <h6>Last online {{ (friend.lastlogoff | amFromUnix) | amTimeAgo }}</h6>
