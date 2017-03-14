@@ -29,9 +29,11 @@ export class FriendsList {
     ionViewCanEnter() {
         this.profile = this.navParams.get('profile');
         this.friends = this.navParams.get('friends');
+        this.sortFriends();
+
         this.db.collection('favorites').find({ id: this.profile.steamid }).fetch()
             .subscribe((result) => {
-                let results = result ? (result.favorites || []): [];
+                let results = result ? (result.favorites || []) : [];
                 this.favorites = this.friends.filter((o) => {
                     return results.find(r => r === o.steamid);
                 });
@@ -66,7 +68,6 @@ export class FriendsList {
         this.offline = this.friends.filter(o => {
             return o.personastate === 0 && this.favorites.findIndex(f => f.steamid === o.steamid) < 0
         }).sort(this.sortByLastLogOff);
-
     }
 
     public updateFriends(refresher) {

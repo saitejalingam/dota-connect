@@ -15,7 +15,7 @@
 
     <ion-list>
          <div *ngIf="favorites.length">
-            <ion-list-header class="friends-header">Favorites</ion-list-header>
+            <ion-list-header>Favorites</ion-list-header>
             <div class="sorted-list">
                 <ion-item *ngFor="let friend of favorites" (click)="navigateToProfile(friend)">
                     <ion-avatar item-left>
@@ -29,7 +29,7 @@
         </div>
 
         <div *ngIf="online.length">
-            <ion-list-header class="friends-header">Online</ion-list-header>
+            <ion-list-header>Online</ion-list-header>
             <div class="sorted-list">
                 <ion-item *ngFor="let friend of online" (click)="navigateToProfile(friend)">
                     <ion-avatar item-left>
@@ -42,7 +42,7 @@
         </div>
 
         <div *ngIf="offline.length">
-            <ion-list-header class="friends-header">Inactive</ion-list-header>
+            <ion-list-header>Inactive</ion-list-header>
             <div class="sorted-list">
                 <ion-item *ngFor="let friend of offline" (click)="navigateToProfile(friend)">
                     <ion-avatar item-left>
