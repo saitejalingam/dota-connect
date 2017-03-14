@@ -29,16 +29,22 @@ export class FriendsList {
     ionViewCanEnter() {
         this.profile = this.navParams.get('profile');
         this.friends = this.navParams.get('friends');
-        this.online = this.friends.filter(o => o.personastate !== 0).sort(this.sortByState);
-        this.offline = this.friends.filter(o => o.personastate === 0).sort(this.sortByLastLogOff);
         this.db.collection('favorites').find({ id: this.profile.steamid }).fetch()
             .subscribe((result) => {
+                let results = result ? (result.favorites || []): [];
                 this.favorites = this.friends.filter((o) => {
-                    return result.favorites.find(r => r === o.steamid);
+                    return results.find(r => r === o.steamid);
                 });
-                
+            }, (err) => {
+                this.alert.create({
+                    title: 'API Failed',
+                    message: 'Oops! Failed to fetch favorites. Please try again.',
+                    buttons: ['Dismiss']
+                }).present();
+            }, () => {
+                this.sortFriends();
                 return true;
-            }, (err) => { return true; });
+            });
     }
 
     private sortByState(a, b): number {
@@ -53,11 +59,22 @@ export class FriendsList {
         return 0;
     }
 
+    private sortFriends() {
+        this.online = this.friends.filter(o => {
+            return o.personastate !== 0 && this.favorites.findIndex(f => f.steamid === o.steamid) < 0
+        }).sort(this.sortByState);
+        this.offline = this.friends.filter(o => {
+            return o.personastate === 0 && this.favorites.findIndex(f => f.steamid === o.steamid) < 0
+        }).sort(this.sortByLastLogOff);
+
+    }
+
     public updateFriends(refresher) {
         this.steamUserService.getFriendSummaries()
             .subscribe((friends) => {
                 this.steamUserService.friends = friends;
                 this.friends = friends;
+                this.sortFriends();
                 refresher.complete();
             }, (err) => {
                 refresher.complete();
