@@ -90,6 +90,7 @@ export class Home {
     public logout() {
         this.steamIDService.removeID();
         this.db.disconnect();
+        this.push.unregister();
         this.navCtrl.setRoot(Login);
     }
 }

@@ -1,14 +1,14 @@
-import { Component, AfterViewChecked, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Database } from '@ionic/cloud-angular';
-import { LoadingController, NavParams, AlertController } from 'ionic-angular';
+import { LoadingController, NavParams, AlertController, Content } from 'ionic-angular';
 import { Observable } from 'rxjs';
 
 @Component({
     selector: 'messages-tab',
     templateUrl: 'messages.html'
 })
-export class Messages implements AfterViewChecked {
-    @ViewChild('msgContent') private msgContent;
+export class Messages {
+    @ViewChild(Content) content: Content;
 
     private messages: Array<any> = new Array();
     private message: string;
@@ -39,8 +39,10 @@ export class Messages implements AfterViewChecked {
                 { actionID: this.recipient.steamid + this.sender.steamid }
             ).watch().subscribe((result) => {
                 this.messages = result.sort(this.sortByTime);
-                this.scrollToBottom();
                 loader.dismiss();
+                setTimeout(() => {
+                    this.content.scrollToBottom();
+                }, 200);
             }, (error) => {
                 this.alert.create({
                     title: 'API Failed',
@@ -52,20 +54,10 @@ export class Messages implements AfterViewChecked {
         });
     }
 
-    ngAfterViewChecked() {
-        this.scrollToBottom();
-    }
-
     private sortByTime(a: any, b: any): number {
         if (a.time > b.time) { return 1; }
         if (a.time < b.time) { return -1 };
         return 0;
-    }
-
-    private scrollToBottom(): void {
-        try {
-            this.msgContent.scrollTop = this.msgContent.scrollHeight;
-        } catch (err) { }
     }
 
     private sendMessage() {
