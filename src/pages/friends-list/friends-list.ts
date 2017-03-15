@@ -111,7 +111,8 @@ export class FriendsList {
         });
     }
 
-    public sendQuickInvite(friend: any) {
+    public sendQuickInvite(friend: any, slidingList) {
+        slidingList.close();
         this.pushService.inviteToPlay(friend, this.profile);
     }
 }

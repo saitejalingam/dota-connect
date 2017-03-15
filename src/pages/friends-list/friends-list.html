@@ -22,7 +22,7 @@
         <div *ngIf="favorites.length">
             <ion-list-header>Favorites</ion-list-header>
             <div class="sorted-list">
-                <ion-item-sliding *ngFor="let friend of favorites">
+                <ion-item-sliding *ngFor="let friend of favorites" #slidingList >
                     <ion-item (click)="navigateToProfile(friend)">
                         <ion-avatar item-left>
                             <img [src]="friend?.avatarmedium">
@@ -31,8 +31,8 @@
                         <h6 *ngIf="friend?.personastate !== 0">{{ friend?.personastate | playerStatus }}</h6>
                         <h6 *ngIf="friend?.personastate === 0">Last online {{ (friend.lastlogoff | amFromUnix) | amTimeAgo }}</h6>
                     </ion-item>
-                    <ion-item-options>
-                        <button ion-button (click)="sendQuickInvite(friend)"><ion-icon name="game-controller-b"></ion-icon>Invite</button>
+                    <ion-item-options icon-left>
+                        <button ion-button (click)="sendQuickInvite(friend, slidingList)"><ion-icon name="game-controller-b"></ion-icon>Invite</button>
                     </ion-item-options>
                 </ion-item-sliding>
             </div>

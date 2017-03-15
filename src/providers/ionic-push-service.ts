@@ -20,7 +20,12 @@ export class IonicPushService {
         return this.http.post('https://api.ionic.io/push/notifications', {
             tokens: [token],
             profile: 'dev',
-            notification: { message: player_name + " has Invited you for a Game!" }
+            notification: { 
+                message: player_name + " has Invited you for a Game!",
+                android: {
+                    sound: 'match_ready'
+                }
+            }
         }, { headers: headers });
     }
 
