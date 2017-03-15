@@ -11,12 +11,9 @@ friends-list {
     
     .sorted-list {
         margin-bottom: 10px;
-
-        .item:first-child {
-            margin-top: 10px
-        }
+        margin-top: 10px;
         
-        .item:last-child {
+        .item-wrapper:last-child {
             .item-inner {
                 border: 0;
             }

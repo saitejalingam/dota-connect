@@ -6,6 +6,7 @@ import { Search } from '../search/search';
 import { PlayerProfile } from '../player-profile/player-profile';
 
 import { SteamUserService } from '../../providers/steam-user-service';
+import { IonicPushService } from '../../providers/ionic-push-service';
 
 @Component({
     selector: 'friends-list',
@@ -24,7 +25,8 @@ export class FriendsList {
         private menuCtrl: MenuController,
         private steamUserService: SteamUserService,
         private db: Database,
-        private alert: AlertController
+        private alert: AlertController,
+        private pushService: IonicPushService
     ) { }
 
     ionViewCanEnter() {
@@ -93,7 +95,7 @@ export class FriendsList {
             });
     }
 
-    public navigateToProfile(friend) {
+    public navigateToProfile(friend: any) {
         this.nav.push(PlayerProfile, {
             player: this.profile,
             friend: friend,
@@ -101,11 +103,15 @@ export class FriendsList {
         });
     }
 
-    public enableSearch() {
+    public navigateToSearch() {
         this.nav.push(Search, {
             player: this.profile,
             friends: this.friends,
             favorites: this.favorites.map((o) => { return o.steamid })
         });
+    }
+
+    public sendQuickInvite(friend: any) {
+        this.pushService.inviteToPlay(friend, this.profile);
     }
 }

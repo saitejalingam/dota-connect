@@ -33,7 +33,7 @@ export class Search {
         setTimeout(() => {
             this.searchInput.setFocus();
             Keyboard.show();
-        });
+        }, 100);
     }
 
     ionViewCanLeave() {

@@ -54,19 +54,7 @@ export class PlayerProfile {
   };
 
   public inviteToPlay(): void {
-    this.getPushToken()
-      .flatMap((user) => {
-        console.log(user);
-        return this.ionicPushService.sendNotification(this.player.personaname, user.token);
-      })
-      .subscribe(() => {
-        this.db.disconnect();
-        this.alert.create({
-          title: 'Invite sent!',
-          subTitle: 'Your invitation to play has been sent to ' + this.friend.personaname,
-          buttons: ['Dismiss']
-        }).present();
-      });
+    this.ionicPushService.inviteToPlay(this.friend, this.player);
   }
 
   private addFavorite(): void {
@@ -107,12 +95,6 @@ export class PlayerProfile {
       id: this.player.steamid,
       favorites: this.favorites
     });
-  }
-
-  public getPushToken(): Observable<any> {
-    let users = this.db.collection('users');
-    this.db.connect();
-    return users.find({ id: this.friend.steamid }).fetch();
   }
 
   private isFavorite() {
