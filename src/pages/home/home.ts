@@ -7,7 +7,7 @@ import { Login } from '../../login/login';
 import { PlayerProfile } from '../player-profile/player-profile';
 import { FriendsList } from '../friends-list/friends-list';
 
-import { SteamIDService } from '../../providers/steamid-service';
+import { StorageService } from '../../providers/storage-service';
 import { SteamUserService } from '../../providers/steam-user-service';
 
 @Component({
@@ -17,10 +17,11 @@ import { SteamUserService } from '../../providers/steam-user-service';
 export class Home {
     @ViewChild('appcontent') nav;
     public profile: any;
+    private playerID: string;
 
     constructor(
         private navCtrl: NavController,
-        private steamIDService: SteamIDService,
+        private storage: StorageService,
         private steamUserService: SteamUserService,
         private loading: LoadingController,
         private db: Database,
@@ -31,7 +32,7 @@ export class Home {
     ionViewCanEnter() {
         this.db.connect();
         this.db.collection('users').upsert({
-            id: this.steamIDService.getID(),
+            id: this.playerID,
             token: this.push.token.token
         }).subscribe(() => {
             this.db.disconnect();
@@ -51,44 +52,44 @@ export class Home {
     }
 
     ionViewDidEnter() {
+        this.playerID = this.storage.getID();
+        let storedProfile = this.storage.getProfile(this.playerID);
         let loader = this.loading.create({
-            content: 'Getting player profile...'
+            content: 'Loading player profile...'
         });
 
         Splashscreen.hide();
-        loader.present().then(() => {
-            this.steamUserService.getPlayerProfile()
-                .flatMap((profile) => {
-                    this.profile = profile;
-                    this.steamUserService.profile = profile;
-                    return this.steamUserService.getPlayerFriends();
-                })
-                .flatMap((friendIDs) => {
-                    this.steamUserService.friendIDs = friendIDs.map((friend) => { return friend.steamid; });
-                    return this.steamUserService.getFriendSummaries();
-                })
-                .subscribe((friends) => {
-                    this.steamUserService.friends = friends;
-                    this.nav.setRoot(FriendsList, {
-                        profile: this.profile,
-                        friends: friends
-                    });
+        if (storedProfile) {
+            this.profile = storedProfile;
+            this.loadProfileData();
+            this.nav.setRoot(FriendsList);
+        } else {
+            loader.present().then(() => {
+                this.loadProfileData(loader);
+            });
+        }
+    }
 
-                    loader.dismiss();
-                }, (err) => {
-                    loader.dismiss();
-                    this.alert.create({
-                        title: 'API Failed',
-                        message: 'Oops! Failed to get player info. Please try again.',
-                        buttons: ['Dismiss']
-                    }).present();
-                    console.log(err);
-                });
-        });
+    public loadProfileData(loader?: any) {
+        this.steamUserService.getPlayerProfile()
+            .subscribe((profile) => {
+                loader && loader.dismiss();
+                this.profile = profile;
+                this.storage.setProfile(this.playerID, profile);
+                loader && this.nav.setRoot(FriendsList);
+            }, (err) => {
+                loader && loader.dismiss();
+                this.alert.create({
+                    title: 'API Failed',
+                    message: 'Oops! Failed to get player info. Please try again.',
+                    buttons: ['Dismiss']
+                }).present();
+                console.log(err);
+            });
     }
 
     public logout() {
-        this.steamIDService.removeID();
+        this.storage.removeID();
         this.db.disconnect();
         this.push.unregister();
         this.navCtrl.setRoot(Login);

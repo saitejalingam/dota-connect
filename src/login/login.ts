@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { InAppBrowser, Splashscreen } from 'ionic-native';
 
-import { SteamIDService } from '../providers/steamid-service';
+import { StorageService } from '../providers/storage-service';
 import { Home } from '../pages/home/home';
 
 @Component({
@@ -13,7 +13,7 @@ export class Login {
   private baseUrl: string = 'https://dota-connect-server.herokuapp.com/api/login';
   constructor(
     private navCtrl: NavController,
-    private steamIDService: SteamIDService,
+    private storage: StorageService,
     private alert: AlertController
   ) { }
 
@@ -32,7 +32,7 @@ export class Login {
 
         if (url === this.baseUrl + '/success') {
           let user_id = keys['openid.claimed_id'].split('/').splice(-1, 1)[0];
-          this.steamIDService.setID(user_id);
+          this.storage.setID(user_id);
           browser.close();
           this.navCtrl.setRoot(Home);
         }

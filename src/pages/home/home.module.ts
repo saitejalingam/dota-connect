@@ -12,7 +12,7 @@ import { Messages } from '../components/messages/messages';
 import { MatchDetailsCard } from '../components/match-details-card/match-details-card';
 import { PlayerStatusPipe } from '../../providers/player-status-pipe';
 
-import { SteamIDService } from '../../providers/steamid-service';
+import { StorageService } from '../../providers/storage-service';
 import { SteamUserService } from '../../providers/steam-user-service';
 import { PlayerDataService } from '../../providers/player-data-service';
 import { IonicPushService } from '../../providers/ionic-push-service';
@@ -36,7 +36,7 @@ import { IonicPushService } from '../../providers/ionic-push-service';
         PlayerStatusPipe
     ],
     providers: [
-        SteamIDService,
+        StorageService,
         SteamUserService,
         PlayerDataService,
         IonicPushService

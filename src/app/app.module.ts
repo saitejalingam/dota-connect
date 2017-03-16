@@ -6,7 +6,7 @@ import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
 import { MyApp } from './app.component';
 import { LoginModule } from '../login/login.module';
 import { HomeModule } from '../pages/home/home.module';
-import { SteamIDService } from '../providers/steamid-service';
+import { StorageService } from '../providers/storage-service';
 import { DotaDataService } from '../providers/dota-data-service';
 
 const cloudSettings: CloudSettings = {
@@ -44,7 +44,7 @@ const cloudSettings: CloudSettings = {
     MyApp
   ],
   providers: [
-    SteamIDService,
+    StorageService,
     DotaDataService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]

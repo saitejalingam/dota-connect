@@ -7,7 +7,7 @@ import { Push, PushToken } from '@ionic/cloud-angular';
 import { Login } from '../login/login';
 import { Home } from '../pages/home/home';
 
-import { SteamIDService } from '../providers/steamid-service';
+import { StorageService } from '../providers/storage-service';
 import { DotaDataService } from '../providers/dota-data-service';
 
 @Component({
@@ -18,7 +18,7 @@ export class MyApp implements OnInit {
 
   constructor(
     public platform: Platform,
-    private steamIDService: SteamIDService,
+    private storage: StorageService,
     private dotaDataService: DotaDataService,
     private push: Push,
     private alert: AlertController
@@ -35,7 +35,7 @@ export class MyApp implements OnInit {
 
     this.platform.ready().then(() => {
       StatusBar.styleDefault();
-
+      this.rootPage = this.storage.getID() ? Home : Login;
       this.dotaDataService.fetchHeroes()
         .flatMap((heroes) => {
           this.dotaDataService.heroes = heroes;
@@ -43,7 +43,6 @@ export class MyApp implements OnInit {
         })
         .subscribe((items) => {
           this.dotaDataService.items = items;
-          this.rootPage = this.steamIDService.getID() ? Home : Login;
         }, (err) => {
           this.alert.create({
             title: 'API Failed',

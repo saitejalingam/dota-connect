@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs';
 
-import { SteamIDService } from '../providers/steamid-service';
+import { StorageService } from '../providers/storage-service';
 
 @Injectable()
 export class SteamUserService {
@@ -10,7 +10,7 @@ export class SteamUserService {
     private _friendIDs: any;
     private _friends: any;
 
-    constructor(public http: Http, public steamIDService: SteamIDService) { }
+    constructor(public http: Http, public storage: StorageService) { }
 
     get profile(): any {
         return this._profile;
@@ -43,7 +43,7 @@ export class SteamUserService {
         let baseUrl = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002';
         let params: URLSearchParams = new URLSearchParams();
         params.set('key', '1027FC1AEF0AB63243EEA50A25AE5156');
-        params.set('steamids', this.steamIDService.getID());
+        params.set('steamids', this.storage.getID());
 
         return this.http.get(baseUrl, { search: params })
             .map((res: Response) => res.json())
@@ -54,7 +54,7 @@ export class SteamUserService {
         let baseUrl = 'http://api.steampowered.com/ISteamUser/GetFriendList/v1';
         let params: URLSearchParams = new URLSearchParams();
         params.set('key', '1027FC1AEF0AB63243EEA50A25AE5156');
-        params.set('steamid', this.steamIDService.getID());
+        params.set('steamid', this.storage.getID());
 
         return this.http.get(baseUrl, { search: params })
             .map((res: Response) => res.json())
