@@ -27,7 +27,9 @@ export class Home {
         private db: Database,
         private push: Push,
         private alert: AlertController
-    ) { }
+    ) { 
+        this.playerID = this.storage.getID();
+    }
 
     ionViewCanEnter() {
         this.db.connect();
@@ -52,7 +54,6 @@ export class Home {
     }
 
     ionViewDidEnter() {
-        this.playerID = this.storage.getID();
         let storedProfile = this.storage.getProfile(this.playerID);
         let loader = this.loading.create({
             content: 'Loading player profile...'
