@@ -54,5 +54,22 @@ app-home {
         font-size: 11px;
         letter-spacing: 1px;
         text-transform: uppercase;
+    }
+
+    .status-tag {
+        height: 7px;
+        width: 7px;
+        display: inline-block;
+        border-radius: 50%;
+        margin-bottom: 1px;
+        margin-right: 2px;
+    }
+
+    .online-tag {
+        background-color: limegreen;
     }   
+
+    .away-tag {
+        border: 1px solid grey;
+    }
 }
