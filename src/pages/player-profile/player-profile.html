@@ -3,7 +3,11 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-buttons start>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="toggleFavorite()">
+        <ion-icon *ngIf="!isFav" class="pin-icon" name="md-star-outline"></ion-icon>
+        <ion-icon *ngIf="isFav" class="pin-icon" name="md-star"></ion-icon>
+      </button>
       <button ion-button icon-only>
         <ion-icon name="more"></ion-icon>
       </button>
@@ -12,9 +16,7 @@
 
   <ion-toolbar>
     <div class="friend-info">
-      <ion-icon *ngIf="!isFav" class="pin-icon" name="md-star-outline" (click)="addFavorite()"></ion-icon>
-      <ion-icon *ngIf="isFav" class="pin-icon" name="md-star" (click)="removeFavorite()"></ion-icon>
-      <img class="profile-img" [src]="friend?.avatarfull">
+     <img class="profile-img" [src]="friend?.avatarfull">
       <div class="friend-status">
         <h6 *ngIf="friend?.realname">{{ friend.realname }}</h6>
         <h6>{{ friend?.personaname }}</h6>

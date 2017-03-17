@@ -57,6 +57,10 @@ export class PlayerProfile {
     this.ionicPushService.inviteToPlay(this.friend, this.player);
   }
 
+  public toggleFavorite() {
+    this.isFav ? this.removeFavorite() : this.addFavorite();
+  }
+
   private addFavorite(): void {
     this.favorites.push(this.friend.steamid);
     this.updateFavorites().subscribe(() => {

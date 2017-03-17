@@ -8,14 +8,21 @@ player-profile {
     }
 
     .profile-nav {
+        position: absolute;
+        z-index: 1000;
+
         button, .profile-title>div {
-            color: $grey;
+            color: white;
         }
     }
 
-    .tabs-md {
+    .tabs {
         .tab-button-text {
             margin-top: 5px;
+        }
+
+        .tab-button {
+            min-height: 4.6rem;
         }
     }
 
@@ -32,13 +39,13 @@ player-profile {
     .profile-img {
         height: 90px;
         width: 90px;
-        margin: 15px 30px;
+        margin: 20px 20px 15px 50px;
     }
 
     .friend-status {
         display: inline-block;
         position: absolute;
-        top: 20px;
+        top: 25px;
     }
 
     .invite-btn {
@@ -49,9 +56,6 @@ player-profile {
     }
 
     .pin-icon {
-        position: absolute;
-        top: 7%;
-        right: 2.5%;
         font-size: 2.3em;
         color: gold;
     }
