@@ -18,10 +18,11 @@ const cloudSettings: CloudSettings = {
     'pluginConfig': {
       'ios': {
         'badge': true,
-        'sound': true
+        'sound': true,
       },
       'android': {
-        'iconColor': '#343434'
+        'iconColor': '#343434',
+        'forceShow': true
       }
     }
   }

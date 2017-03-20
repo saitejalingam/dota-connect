@@ -31,7 +31,18 @@ export class MyApp implements OnInit {
       return this.push.saveToken(t);
     }).then((t: PushToken) => {
       console.log('Token saved:', t.token);
+    }).catch(() => {
+      this.alert.create({
+        title: 'Failed to Register',
+        message: 'Failed to register for push notifications. Some features may not work. Please restart the app.',
+        buttons: ['Dismiss']
+      }).present();
     });
+
+    this.push.rx.notification()
+      .subscribe((msg) => {
+        console.log(msg);
+      });
 
     this.platform.ready().then(() => {
       StatusBar.styleDefault();
