@@ -37,7 +37,7 @@ export class Messages {
             collection.findAll(
                 { actionID: this.sender.steamid + this.recipient.steamid },
                 { actionID: this.recipient.steamid + this.sender.steamid }
-            ).watch().subscribe((result) => {
+            ).watch().timeout(5000).subscribe((result) => {
                 this.messages = result.sort(this.sortByTime);
                 loader.dismiss();
                 setTimeout(() => {
