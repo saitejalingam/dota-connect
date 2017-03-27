@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit, NgZone } from '@angular/core';
 import { NavController, LoadingController, MenuController, AlertController, ModalController, ToastController } from 'ionic-angular';
-import { Splashscreen, MediaPlugin } from 'ionic-native';
+import { Splashscreen, MediaPlugin, NativeAudio } from 'ionic-native';
 import { Database, Push } from '@ionic/cloud-angular';
 
 import { Login } from '../../login/login';
@@ -32,9 +32,11 @@ export class Home {
         private modal: ModalController
     ) {
         this.playerID = this.storage.getID();
+        NativeAudio.preloadSimple('match_ready', 'match_ready.wav');
         this.push.rx.notification()
             .subscribe((message) => {
                 if (message.sound) {
+                    NativeAudio.play('match_ready', () => { console.log('Notification received!'); });
                     this.modal.create(InvitationModal,
                         {
                             player: message.payload['player'],
