@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Platform, AlertController } from 'ionic-angular';
+import { Platform, AlertController, ToastController } from 'ionic-angular';
 import { StatusBar } from 'ionic-native';
 import { Push, PushToken } from '@ionic/cloud-angular';
 
@@ -21,31 +21,29 @@ export class MyApp implements OnInit {
     private storage: StorageService,
     private dotaDataService: DotaDataService,
     private push: Push,
-    private alert: AlertController
+    private alert: AlertController,
+    private toast: ToastController
   ) { }
 
   ngOnInit() { this.initializeApp(); };
 
   initializeApp() {
-    this.push.register().then((t: PushToken) => {
-      return this.push.saveToken(t);
-    }).then((t: PushToken) => {
-      console.log('Token saved:', t.token);
-    }).catch(() => {
-      this.alert.create({
-        title: 'Failed to Register',
-        message: 'Failed to register for push notifications. Some features may not work. Please restart the app.',
-        buttons: ['Dismiss']
-      }).present();
-    });
-
-    this.push.rx.notification()
-      .subscribe((msg) => {
-        console.log(msg);
-      });
-
     this.platform.ready().then(() => {
       StatusBar.styleDefault();
+      
+      this.push.register().then((t: PushToken) => {
+        return this.push.saveToken(t);
+      }).then((t: PushToken) => {
+        console.log('Token saved:', t.token);
+      }).catch(() => {
+        this.toast.create({
+          message: 'Failed to register for push notifications. Some features may not work. Please restart the app.',
+          showCloseButton: true,
+          position: 'bottom',
+          duration: 10000
+        }).present();
+      });
+
       this.rootPage = this.storage.getID() ? Home : Login;
       this.dotaDataService.fetchHeroes()
         .flatMap((heroes) => {
@@ -55,10 +53,11 @@ export class MyApp implements OnInit {
         .subscribe((items) => {
           this.dotaDataService.items = items;
         }, (err) => {
-          this.alert.create({
-            title: 'API Failed',
+          this.toast.create({
             message: 'Failed to fetch data. Some features may not work. Please restart the app.',
-            buttons: ['Dismiss']
+            showCloseButton: true,
+            position: 'bottom',
+            duration: 10000
           }).present();
         });
     });

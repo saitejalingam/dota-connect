@@ -11,6 +11,7 @@ import { RecentGames } from '../components/recent-games/recent-games';
 import { Messages } from '../components/messages/messages';
 import { MatchDetailsCard } from '../components/match-details-card/match-details-card';
 import { PlayerStatusPipe } from '../../providers/player-status-pipe';
+import { InvitationModal } from '../components/invitation-modal/invitation-modal';
 
 import { StorageService } from '../../providers/storage-service';
 import { SteamUserService } from '../../providers/steam-user-service';
@@ -33,7 +34,8 @@ import { IonicPushService } from '../../providers/ionic-push-service';
         MatchDetailsCard,
         RecentGames,
         Messages,
-        PlayerStatusPipe
+        PlayerStatusPipe,
+        InvitationModal
     ],
     providers: [
         StorageService,
@@ -47,7 +49,8 @@ import { IonicPushService } from '../../providers/ionic-push-service';
         PlayerProfile,
         RecentGames,
         Messages,
-        Search
+        Search,
+        InvitationModal
     ]
 })
 export class HomeModule { }

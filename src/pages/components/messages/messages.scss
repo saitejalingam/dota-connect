@@ -51,4 +51,13 @@ messages-tab {
             background: grey;
         }
     }
+
+    .generated-msg {
+        text-align: center;
+        
+        p {
+            color: black;
+            padding: 2px;
+        }
+    }
 }

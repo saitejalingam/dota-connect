@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, MenuController, AlertController, Searchbar } from 'ionic-angular';
+import { NavController, NavParams, MenuController, Searchbar } from 'ionic-angular';
 import { Keyboard } from 'ionic-native';
 
 import { PlayerProfile } from '../player-profile/player-profile';

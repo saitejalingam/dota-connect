@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, MenuController, AlertController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, MenuController, AlertController, LoadingController, ToastController } from 'ionic-angular';
 import { Database } from '@ionic/cloud-angular';
 
 import { Search } from '../search/search';
@@ -28,7 +28,7 @@ export class FriendsList {
         private steamUserService: SteamUserService,
         private db: Database,
         private loading: LoadingController,
-        private alert: AlertController,
+        private toast: ToastController,
         private pushService: IonicPushService,
         private storage: StorageService
     ) { }
@@ -87,10 +87,11 @@ export class FriendsList {
                 loader && loader.dismiss();
             }, (err) => {
                 loader && loader.dismiss();
-                this.alert.create({
-                    title: 'API Failed',
+                this.toast.create({
                     message: 'Oops! Failed to get player info. Please try again.',
-                    buttons: ['Dismiss']
+                    position: 'bottom',
+                    showCloseButton: true,
+                    duration: 10000
                 }).present();
                 console.log(err);
             });
@@ -133,10 +134,11 @@ export class FriendsList {
                 refresher.complete();
             }, (err) => {
                 refresher.complete();
-                this.alert.create({
-                    title: 'API Failed',
+                this.toast.create({
                     message: 'Oops! Failed to update friends info. Please try again.',
-                    buttons: ['Dismiss']
+                    position: 'bottom',
+                    showCloseButton: true,
+                    duration: 10000
                 }).present();
             });
     }

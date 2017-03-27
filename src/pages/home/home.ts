@@ -1,11 +1,12 @@
 import { Component, ViewChild, OnInit, NgZone } from '@angular/core';
-import { NavController, LoadingController, MenuController, AlertController } from 'ionic-angular';
-import { Splashscreen } from 'ionic-native';
+import { NavController, LoadingController, MenuController, AlertController, ModalController, ToastController } from 'ionic-angular';
+import { Splashscreen, MediaPlugin } from 'ionic-native';
 import { Database, Push } from '@ionic/cloud-angular';
 
 import { Login } from '../../login/login';
 import { PlayerProfile } from '../player-profile/player-profile';
 import { FriendsList } from '../friends-list/friends-list';
+import { InvitationModal } from '../components/invitation-modal/invitation-modal';
 
 import { StorageService } from '../../providers/storage-service';
 import { SteamUserService } from '../../providers/steam-user-service';
@@ -15,7 +16,7 @@ import { SteamUserService } from '../../providers/steam-user-service';
     templateUrl: 'home.html'
 })
 export class Home {
-    @ViewChild('appcontent') nav;
+    @ViewChild('appcontent') nav: NavController;
     public profile: any;
     private playerID: string;
 
@@ -26,9 +27,24 @@ export class Home {
         private loading: LoadingController,
         private db: Database,
         private push: Push,
-        private alert: AlertController
-    ) { 
+        private alert: AlertController,
+        private toast: ToastController,
+        private modal: ModalController
+    ) {
         this.playerID = this.storage.getID();
+        this.push.rx.notification()
+            .subscribe((message) => {
+                if (message.sound) {
+                    this.modal.create(InvitationModal,
+                        {
+                            player: message.payload['player'],
+                            message: message.text
+                        }, {
+                            showBackdrop: false,
+                            enableBackdropDismiss: false
+                        }).present();
+                }
+            });
     }
 
     ionViewCanEnter() {
@@ -80,13 +96,22 @@ export class Home {
                 loader && this.nav.setRoot(FriendsList);
             }, (err) => {
                 loader && loader.dismiss();
-                this.alert.create({
-                    title: 'API Failed',
+                this.toast.create({
                     message: 'Oops! Failed to get player info. Please try again.',
-                    buttons: ['Dismiss']
+                    position: 'bottom',
+                    showCloseButton: true,
+                    duration: 10000
                 }).present();
                 console.log(err);
             });
+    }
+
+    public showModal() {
+        const file = new MediaPlugin('res/raw/match_ready.wav', (status) => console.log(status));
+        file.init.then(() => file.play(), (err) => { console.log(err) });
+        this.modal.create(InvitationModal, {
+            player: this.profile
+        }).present();
     }
 
     public logout() {

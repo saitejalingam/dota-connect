@@ -32,7 +32,9 @@ export class PlayerProfile {
     private ionicPushService: IonicPushService,
     private db: Database,
     private keyboard: Keyboard
-  ) {
+  ) {}
+
+  ionViewCanEnter() {
     this.tabOne = RecentGames;
     this.tabOneParams = {
       player: this.navParams.get('friend')
@@ -43,9 +45,7 @@ export class PlayerProfile {
       sender: this.navParams.get('player'),
       recipient: this.navParams.get('friend')
     };
-  }
 
-  ionViewCanEnter() {
     this.friend = this.navParams.get('friend');
     this.player = this.navParams.get('player');
     this.favorites = this.navParams.get('favorites');

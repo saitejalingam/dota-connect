@@ -1,7 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
 import { Database } from '@ionic/cloud-angular';
-import { LoadingController, NavParams, AlertController, Content } from 'ionic-angular';
+import { LoadingController, NavParams, ToastController, Content } from 'ionic-angular';
 import { Observable } from 'rxjs';
+
+import { IonicPushService } from '../../../providers/ionic-push-service';
 
 @Component({
     selector: 'messages-tab',
@@ -19,7 +21,8 @@ export class Messages {
         private db: Database,
         private loading: LoadingController,
         private navParams: NavParams,
-        private alert: AlertController
+        private toast: ToastController,
+        private ionicPush: IonicPushService
     ) { }
 
     ionViewDidLoad() {
@@ -35,23 +38,33 @@ export class Messages {
             let collection = this.db.collection('messages');
 
             collection.findAll(
-                { actionID: this.sender.steamid + this.recipient.steamid },
-                { actionID: this.recipient.steamid + this.sender.steamid }
-            ).watch().timeout(5000).subscribe((result) => {
+                { from: this.sender.steamid, to: this.recipient.steamid },
+                { from: this.recipient.steamid, to: this.sender.steamid }
+            ).watch().subscribe((result) => {
                 this.messages = result.sort(this.sortByTime);
-                loader.dismiss();
+                this.limitMessages();
                 setTimeout(() => {
                     this.content.scrollToBottom();
                 }, 200);
-            }, (error) => {
-                this.alert.create({
-                    title: 'API Failed',
-                    message: 'Oops! Failed to fetch messages. Please try again.',
-                    buttons: ['Dismiss']
-                }).present();
                 loader.dismiss();
+            }, (error) => {
+                loader.dismiss();
+                if (!this.messages.length) {
+                    this.toast.create({
+                        message: 'Failed to fetch data. Some features may not work. Please restart the app.',
+                        showCloseButton: true,
+                        position: 'bottom',
+                        duration: 10000
+                    }).present();
+                }
             });
         });
+    }
+
+    private limitMessages() {
+        if (this.messages.length > 20) {
+            this.db.collection("messages").remove(this.messages[0]);
+        }
     }
 
     private sortByTime(a: any, b: any): number {
@@ -71,12 +84,18 @@ export class Messages {
             }).subscribe(() => {
                 this.message = '';
             }, (err) => {
-                this.alert.create({
-                    title: 'Send failed',
+                this.toast.create({
                     message: 'Sorry! Failed to send messages at this moment. Please try again later.',
-                    buttons: ['Dismiss']
+                    showCloseButton: true,
+                    position: 'bottom',
+                    duration: 10000
                 }).present();
             });
         }
+    }
+
+    private getMessageClass(message: any): string {
+        if (message.generated) { return 'generated-msg'; }
+        else { return message.from === this.sender.steamid ? 'sent-msg' : 'received-msg'; }
     }
 }

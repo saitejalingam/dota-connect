@@ -12,23 +12,6 @@ export class IonicPushService {
         private alert: AlertController
     ) { }
 
-    public sendNotification(player_name: string, token: string): Observable<any> {
-        let headers: Headers = new Headers();
-        headers.set('Content-Type', 'application/json');
-        headers.set('Authorization', 'Bearer ' + pushToken);
-
-        return this.http.post('https://api.ionic.io/push/notifications', {
-            tokens: [token],
-            profile: 'dev',
-            notification: { 
-                message: player_name + " has Invited you for a Game!",
-                android: {
-                    sound: 'match_ready'
-                }
-            }
-        }, { headers: headers });
-    }
-
     private getPushToken(steamid: any): Observable<any> {
         let users = this.db.collection('users');
         this.db.connect();
@@ -39,10 +22,11 @@ export class IonicPushService {
         this.getPushToken(friend.steamid)
             .flatMap((user) => {
                 console.log(user);
-                return this.sendNotification(player.personaname, user.token);
+                return this.sendNotification(player, user.token);
             })
             .subscribe(() => {
-                this.db.disconnect();
+                let msg = player.personaname + ' has Invited ' + friend.personaname + ' to Play!';
+                this.generateInviteMessage(player, friend, msg);
                 this.alert.create({
                     title: 'Invite sent!',
                     subTitle: 'Your invitation to play has been sent to ' + friend.personaname,
@@ -54,6 +38,63 @@ export class IonicPushService {
                     subTitle: 'The player has not registered for push notifications!',
                     buttons: ['Dismiss']
                 }).present();
+            }, () => {
+                this.db.disconnect();
+            });
+    }
+
+    public sendNotification(player: any, token: string): Observable<any> {
+        let headers: Headers = new Headers();
+        headers.set('Content-Type', 'application/json');
+        headers.set('Authorization', 'Bearer ' + pushToken);
+
+        return this.http.post('https://api.ionic.io/push/notifications', {
+            tokens: [token],
+            profile: 'dev',
+            notification: {
+                title: 'Game Invite',
+                message: player.personaname + ' has Invited you for a Game!',
+                payload: { player: player },
+                android: {
+                    sound: 'match_ready'
+                }
+            }
+        }, { headers: headers });
+    }
+
+    public generateInviteMessage(profile: any, friend: any, msg: string): Observable<any> {
+        let message = {
+            from: profile.steamid,
+            to: friend.steamid,
+            actionID: profile.steamid + friend.steamid,
+            msg: msg,
+            generated: true,
+            time: Date.now()
+        }
+
+        this.db.connect();
+        return this.db.collection('messages').store(message);
+    }
+
+    public sendMessageNotification(sender: any, recipient: any, msg: string) {
+        let headers: Headers = new Headers();
+        headers.set('Content-Type', 'application/json');
+        headers.set('Authorization', 'Bearer ' + pushToken);
+
+        this.getPushToken(recipient.steamid)
+            .flatMap((user) => {
+                return this.http.post('https://api.ionic.io/push/notifications', {
+                    tokens: [user.token],
+                    profile: 'dev',
+                    notification: {
+                        title: sender.personaname,
+                        message: msg,
+                        payload: { player: sender },
+                    }
+                }, { headers: headers });
+            })
+            .subscribe(() => {
+                console.log('Successfully sent notification!');
             });
     }
 }

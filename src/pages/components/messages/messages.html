@@ -1,5 +1,5 @@
 <ion-content>
-     <div *ngFor="let message of messages" class="msg" [ngClass]="message.from === sender.steamid ? 'sent-msg': 'received-msg'">
+     <div *ngFor="let message of messages" class="msg" [ngClass]="getMessageClass(message)">
          <p>{{ message.msg }}</p>
      </div>
 </ion-content>
