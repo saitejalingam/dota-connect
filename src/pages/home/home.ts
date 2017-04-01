@@ -36,7 +36,10 @@ export class Home {
         this.push.rx.notification()
             .subscribe((message) => {
                 if (message.sound) {
-                    NativeAudio.play('match_ready', () => { console.log('Notification received!'); });
+                    if (!message.raw.additionalData.coldstart && message.raw.additionalData.foreground) {
+                        NativeAudio.play('match_ready', () => { console.log('Notification received!'); });
+                    }
+
                     this.modal.create(InvitationModal,
                         {
                             player: message.payload['player'],

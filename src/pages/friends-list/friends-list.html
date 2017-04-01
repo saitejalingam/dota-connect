@@ -34,7 +34,7 @@
                         <h6 *ngIf="friend?.personastate === 0">Last online {{ (friend.lastlogoff | amFromUnix) | amTimeAgo }}</h6>
                     </ion-item>
                     <ion-item-options icon-left class="sliding-option">
-                        <button ion-button (click)="sendQuickInvite(friend, slidingList)"><ion-icon name="game-controller-b"></ion-icon>Invite</button>
+                        <button ion-button (click)="sendQuickInvite(friend, slidingList)"><ion-icon name="ios-game-controller-b"></ion-icon>Invite</button>
                     </ion-item-options>
                 </ion-item-sliding>
             </div>

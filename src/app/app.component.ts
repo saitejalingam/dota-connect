@@ -46,12 +46,8 @@ export class MyApp implements OnInit {
 
       this.rootPage = this.storage.getID() ? Home : Login;
       this.dotaDataService.fetchHeroes()
-        .flatMap((heroes) => {
+        .subscribe((heroes) => {
           this.dotaDataService.heroes = heroes;
-          return this.dotaDataService.fetchItems();
-        })
-        .subscribe((items) => {
-          this.dotaDataService.items = items;
         }, (err) => {
           this.toast.create({
             message: 'Failed to fetch data. Some features may not work. Please restart the app.',
