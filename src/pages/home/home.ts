@@ -80,7 +80,6 @@ export class Home {
             content: 'Loading player profile...'
         });
 
-        Splashscreen.hide();
         if (storedProfile) {
             this.profile = storedProfile;
             this.loadProfileData();
@@ -90,6 +89,12 @@ export class Home {
                 this.loadProfileData(loader);
             });
         }
+    }
+
+    ionViewDidLoad() {
+        setTimeout(() => {
+            Splashscreen.hide();
+        }, 500);
     }
 
     public loadProfileData(loader?: any) {

@@ -17,8 +17,10 @@ export class Login {
     private alert: AlertController
   ) { }
 
-  ionViewDidEnter() {
-    Splashscreen.hide();
+  ionViewDidLoad() {
+    setTimeout(() => {
+      Splashscreen.hide();
+    }, 500);
   }
 
   public loginWithSteam() {
@@ -38,9 +40,9 @@ export class Login {
         }
       }, (err) => {
         this.alert.create({
-            title: 'Login Failed',
-            message: 'Please try again.',
-            buttons: ['Dismiss']
+          title: 'Login Failed',
+          message: 'Please try again.',
+          buttons: ['Dismiss']
         }).present();
       });
 
