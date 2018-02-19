@@ -11,4 +11,6 @@ This application allows friends to communicate and plan game time together witho
 Integration with Steam lets you login with your Steam ID and find all of your friends right there.
 Features like Favorite, Search, Quick Invite, and Messaging allow users to seamlessly communicate with other users of the app.
 
-<img src="https://raw.githubusercontent.com/saitejalingam/dota-connect/master/src/assets/demo/demo.jpg">
+<img src="https://raw.githubusercontent.com/saitejalingam/dota-connect/master/src/assets/demo/1.jpg" width="30%">
+<img src="https://raw.githubusercontent.com/saitejalingam/dota-connect/master/src/assets/demo/2.jpg" width="30%">
+<img src="https://raw.githubusercontent.com/saitejalingam/dota-connect/master/src/assets/demo/3.jpg" width="30%">
