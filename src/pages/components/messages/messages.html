@@ -1,0 +1,12 @@
+<ion-content>
+     <div *ngFor="let message of messages" class="msg" [ngClass]="getMessageClass(message)">
+         <p>{{ message.msg }}</p>
+     </div>
+</ion-content>
+
+<ion-footer>
+    <ion-input type="text" [(ngModel)]="message" placeholder="Message..." ></ion-input>
+    <button class="send-btn" (click)="sendMessage()">
+        <ion-icon name="send"></ion-icon>
+    </button>
+</ion-footer>

@@ -1,30 +1,61 @@
-import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
-import { StatusBar, Splashscreen } from 'ionic-native';
-import { AngularFire } from 'angularfire2';
+import { Component, OnInit } from '@angular/core';
+import { Platform, AlertController, ToastController } from 'ionic-angular';
+import { StatusBar } from 'ionic-native';
+import { Push, PushToken } from '@ionic/cloud-angular';
+
 
 import { Login } from '../login/login';
 import { Home } from '../pages/home/home';
 
+import { StorageService } from '../providers/storage-service';
+import { DotaDataService } from '../providers/dota-data-service';
+
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
-  rootPage: any;
-  constructor(public platform: Platform, public af: AngularFire) {
-    this.initializeApp();
+export class MyApp implements OnInit {
+  public rootPage: any;
 
-    af.auth.subscribe(user => {
-      this.rootPage = user ? Home : Login;
-    });
-  }
+  constructor(
+    public platform: Platform,
+    private storage: StorageService,
+    private dotaDataService: DotaDataService,
+    private push: Push,
+    private alert: AlertController,
+    private toast: ToastController
+  ) { }
+
+  ngOnInit() { this.initializeApp(); };
 
   initializeApp() {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
-      Splashscreen.hide();
+      
+      this.push.register().then((t: PushToken) => {
+        return this.push.saveToken(t);
+      }).then((t: PushToken) => {
+        console.log('Token saved:', t.token);
+      }).catch(() => {
+        this.toast.create({
+          message: 'Failed to register for push notifications. Some features may not work. Please restart the app.',
+          showCloseButton: true,
+          position: 'bottom',
+          duration: 10000
+        }).present();
+      });
+
+      this.rootPage = this.storage.getID() ? Home : Login;
+      this.dotaDataService.fetchHeroes()
+        .subscribe((heroes) => {
+          this.dotaDataService.heroes = heroes;
+        }, (err) => {
+          this.toast.create({
+            message: 'Failed to fetch data. Some features may not work. Please restart the app.',
+            showCloseButton: true,
+            position: 'bottom',
+            duration: 10000
+          }).present();
+        });
     });
   }
 }

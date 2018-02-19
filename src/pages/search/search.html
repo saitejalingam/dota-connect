@@ -1,0 +1,21 @@
+<ion-header>
+    <ion-searchbar [(ngModel)]="searchText" [animated]="true" [showCancelButton]="true" (ionInput)="onSearchInput($event)"
+        (ionCancel)="onSearchCancel()" (ionClear)="onSearchClear()" #searchInput>
+    </ion-searchbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-list-header>Results</ion-list-header>
+        <div class="sorted-list">
+            <ion-item *ngFor="let friend of searchList" (click)="navigateToProfile(friend)">
+                <ion-avatar item-left>
+                    <img [src]="friend?.avatarmedium">
+                </ion-avatar>
+                <h2>{{ friend?.personaname }}</h2>
+                <h6 *ngIf="friend?.personastate !== 0"><span [ngClass]="friend?.personastate === 1 ? 'online-tag' : 'away-tag'" class="status-tag"></span> {{ friend?.personastate | playerStatus }}</h6>
+                <h6 *ngIf="friend?.personastate === 0">Last online {{ (friend.lastlogoff | amFromUnix) | amTimeAgo }}</h6>
+            </ion-item>
+        </div>
+    </ion-list>
+</ion-content>

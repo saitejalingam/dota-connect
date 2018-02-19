@@ -1,0 +1,62 @@
+player-profile {
+    .recent-games {
+        color: black;
+    }
+
+    .header-md::after {
+        background-image: none;
+    }
+
+    .profile-nav {
+        position: absolute;
+        z-index: 1000;
+
+        button, .profile-title>div {
+            color: white;
+        }
+    }
+
+    .tabs {
+        .tab-button-text {
+            margin-top: 5px;
+        }
+
+        .tab-button {
+            min-height: 4.6rem;
+        }
+    }
+
+    .toolbar-md {
+        padding: 0;
+    }
+
+    .friend-info {
+        background: url("../assets/images/black_background.jpg");
+        background-position: 15% 20%;
+        color: white;
+    }
+
+    .profile-img {
+        height: 90px;
+        width: 90px;
+        margin: 20px 20px 15px 50px;
+    }
+
+    .friend-status {
+        display: inline-block;
+        position: absolute;
+        top: 25px;
+    }
+
+    .invite-btn {
+        font-size: 20px;
+        font-family: Radiance-SemiBold;
+        margin: 5px 0 0;
+        padding: 0;
+    }
+
+    .pin-icon {
+        font-size: 2.3em;
+        color: gold;
+    }
+}

@@ -1,0 +1,50 @@
+match-details-card {
+    .hero-card {
+        margin: 4% 0 6%;
+        position: relative;
+        height: 115px;
+        color: white;
+
+        .hero-details {
+            top: 15px;
+            right: 15px;
+            position: absolute;
+            text-align: right;
+
+            span {
+                display: block;
+                letter-spacing: 3px;
+            }
+        }
+
+        .match-time {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            font-size: 12px;
+            padding: 8px 10px 3px;
+            letter-spacing: 1px;
+            background: linear-gradient(to right, #000000 , rgba(0, 0, 0, 0) 75%);
+        }
+    }
+
+    .green-hue {
+        &:before {
+            content: '';
+	        position: absolute;
+            height: 115px;
+            width: 100%;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 10%, #002000 50%, #000000 95%) 
+        }
+    }
+
+    .red-hue {
+        &:before {
+            content: '';
+	        position: absolute;
+            height: 115px;
+            width: 100%;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 10%, #300000 50%, #000000 95%) 
+        }
+    }
+}

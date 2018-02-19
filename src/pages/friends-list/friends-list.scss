@@ -1,0 +1,57 @@
+friends-list {
+    .header-md::after {
+        background-image: none;
+    }
+
+    .header {
+        background: url("../assets/images/black_background.jpg");
+        background-position: 15% 20%;
+    }
+
+    .friends-nav {
+        button, .friends-title>div {
+            color: $light;
+        }
+    }
+    
+    .sorted-list {
+        margin-bottom: 10px;
+        margin-top: 10px;
+        
+        .item-wrapper:last-child {
+            .item-inner {
+                border: 0;
+            }
+        }
+
+        .item:last-child {
+            .item-inner {
+                border: 0;
+            }
+        }
+
+        .sliding-option {
+            .icon {
+                font-size: 3.4em;
+            }
+
+            .button {
+                color: black;
+                background-color: transparent;
+            }
+
+            span {
+                padding-right: 0.2em;
+            }
+        }
+    }
+
+    .pin-icon {
+        position: absolute;
+        top: 45%;
+        right: 2.5%;
+        font-size: 2.0em;
+        color: gold;
+        transform: translateY(-50%);
+    }
+}

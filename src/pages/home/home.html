@@ -1,22 +1,28 @@
-<ion-menu [content]="mycontent">
+<ion-menu [content]="appcontent">
+    <ion-header class="profile-header">
+        <div class="profile-container">
+            <img class="profile-img" [src]="profile?.avatarmedium">
+            <div class="profile-text">
+                <ion-title>
+                    <h4 *ngIf="profile?.realname">{{ profile?.realname }}</h4>
+                    <h4>{{ profile?.personaname }}</h4>
+                </ion-title>
+                <div *ngIf="profile?.personastate !== 0">{{ profile?.personastate | playerStatus }}</div>
+                <div *ngIf="profile?.personastate === 0">Last online {{ (profile?.lastlogoff | amFromUnix) | amTimeAgo }}</div>
+            </div>
+        </div>
+    </ion-header>
     <ion-content>
         <ion-list>
-            <ion-list-header>Steam Accounts</ion-list-header>
-            <button ion-item detail-none><span>Account 1</span></button>
-            <button ion-item detail-none><span>Account 2</span></button>
-            <button ion-item (click)="navigateTo()">Manage Accounts</button>
+            <ion-list-header>Connect</ion-list-header>
+            <button class="parent-button" ion-item detail-none>Friends</button>
+            <button class="parent-button" ion-item detail-none>Teams</button>
 
-            <ion-item-divider></ion-item-divider>
-            <ion-list-header>Friends</ion-list-header>
-            <button ion-item>Manage Accounts</button>
-            <button ion-item>Settings</button>
-
-            <ion-item-divider></ion-item-divider>
             <ion-list-header>App</ion-list-header>
-            <button ion-item>Settings</button>
-            <button ion-item detail-none (click)="signOut()">Logout</button>
+            <button class="parent-button" ion-item detail-none (click)="showModal()">Settings</button>
+            <button class="parent-button" ion-item detail-none (click)="logout()">Logout</button>
         </ion-list>
     </ion-content>
 </ion-menu>
 
-<ion-nav #mycontent [root]="rootPage"></ion-nav>
+<ion-nav #appcontent></ion-nav>

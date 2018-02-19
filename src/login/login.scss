@@ -1,6 +1,5 @@
 app-login {
-    background: url('../assets/images/background.jpg') no-repeat 40% 40%;
-    background-size: auto 100%;
+    background: url('../assets/images/black_background.jpg');
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
     .login-parent {
@@ -32,29 +31,37 @@ app-login {
         font-family: Radiance-SemiBold;
         letter-spacing: 5px;
     }
+
+    .sign-in {
+        font-size: 14px;
+        letter-spacing: 1px;
+    }
     
     .login-card {
         position: absolute;
+        background: whitesmoke;
+        color: black;
         bottom: 0;
         margin: 0;
+        text-align: center;
         min-width: 100%;
 
-        -webkit-animation: slideup 3s; /* Safari, Chrome and Opera > 12.1 */
-        -moz-animation: slideup 3s; /* Firefox < 16 */
-        -ms-animation: slideup 3s; /* Internet Explorer */
-        -o-animation: slideup 3s; /* Opera < 12.1 */
-        animation: slideup 3s ease-in;
+        -webkit-animation: slideup 2s; /* Safari, Chrome and Opera > 12.1 */
+        -moz-animation: slideup 2s; /* Firefox < 16 */
+        -ms-animation: slideup 2s; /* Internet Explorer */
+        -o-animation: slideup 2s; /* Opera < 12.1 */
+        animation: slideup 2s ease linear;
     }
 
     .login-icon {
-        width: 15%;
-        height: auto;
-        display: inline-block;
-        margin-left: 13%;
+        display: inline;
+        vertical-align: middle;
+        margin-left: -10px;
+        width: 40%;
     }
 
-    .card-content-ios {
-        padding: 0 0 10px 0;
+    .card-content {
+        padding: 15px;
     }
 
     @keyframes fadein {

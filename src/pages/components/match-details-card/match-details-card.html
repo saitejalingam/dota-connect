@@ -1,0 +1,11 @@
+<div class="hero-card" [ngClass]="isWin ? 'green-hue': 'red-hue'">
+    <img [src]="getHeroImageURL(playerDetails.hero_id)">
+    <div class="hero-details">
+        <h2>{{ getHeroLocalizedName(playerDetails.hero_id) }}</h2>
+        <span>K/D/A</span>
+        <span>{{ playerDetails.kills }}/{{ playerDetails.deaths }}/{{ playerDetails.assists }}</span>
+    </div>
+    <div class="match-time">
+        {{ (this.match.start_time | amFromUnix) | amDateFormat:'MMMM Do, h:mm A' }}
+    </div>
+</div>

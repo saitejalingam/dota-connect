@@ -1,0 +1,23 @@
+<div class="invitation-content">
+    <div class="invite-from">
+        <span>Invite from... </span>
+        <ion-icon name="close" class="close-btn" (click)="closeModal()"></ion-icon>
+    </div>
+    <div class="invitation-header">
+        <div class="image"> 
+            <img [src]="player?.avatarfull">
+        </div>
+        <div class="info">
+            <h4 *ngIf="player?.realname">{{ player.realname }}</h4>
+            <h4>{{ player?.personaname }}</h4>
+            <p *ngIf="player?.personastate !== 0"><span [ngClass]="player?.personastate === 1 ? 'online-tag' : 'away-tag'" class="status-tag"></span> {{ player?.personastate | playerStatus }}</p>
+            <p *ngIf="player?.personastate === 0">Last online {{ (player.lastlogoff | amFromUnix) | amTimeAgo }}</p>
+        </div>
+    </div>
+    <div class="invitation-body">
+        <ion-buttons class="buttons">
+            <button ion-button (click)="declineInvite()" class="decline-btn">Decline</button>
+            <button ion-button (click)="acceptInvite()" class="accept-btn">Accept</button>
+        </ion-buttons>
+    </div>
+</div>

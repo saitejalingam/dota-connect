@@ -1,0 +1,63 @@
+messages-tab {
+    .send-btn {
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+        font-size: 16px;
+        color: white;
+        background-color: #387ef5;
+        transform: translateY(-50%);
+    }
+
+    .text-input {
+        margin: 10px 8px 10px 8px;
+        padding: 7px;
+        width: 75%;
+        font-size: 15px;
+    }
+
+    .msg {
+        margin-bottom: 5px;
+
+        &:first-child {
+            margin-top: 5px;
+        }
+
+        p {
+            text-align: justify;
+            display: inline-block;
+            padding: 10px 10px;
+            border-radius: 15px;
+        }
+    }
+
+    .sent-msg {
+        text-align: right;
+
+        p {
+            color: white;
+            background: #387ef5;
+        }
+    }
+
+    .received-msg {
+        text-align: left;
+        
+        p {
+            color: white;
+            background: grey;
+        }
+    }
+
+    .generated-msg {
+        text-align: center;
+        
+        p {
+            color: black;
+            padding: 2px;
+        }
+    }
+}
